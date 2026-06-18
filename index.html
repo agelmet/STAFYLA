@@ -10,16 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* First Light palette — dawn over a long night */
-  --night:#241726;        /* deep plum-night, the anchor */
-  --night-2:#34203a;      /* lifted plum */
-  --clay:#b56b5e;         /* warm rose-clay */
-  --rose:#e2a297;         /* soft rose */
-  --apricot:#f6c9a0;      /* apricot light */
-  --bone:#f7f1ea;         /* bone white */
-  --bone-2:#efe5da;       /* warm card surface */
-  --ink:#2c2230;          /* body text on light */
-  --ink-soft:#6a5d6c;     /* muted text */
+  --night:#241726; 
+  --night-2:#34203a; 
+  --clay:#b56b5e; 
+  --rose:#e2a297; 
+  --apricot:#f6c9a0; 
+  --bone:#f7f1ea; 
+  --bone-2:#efe5da; 
+  --ink:#2c2230; 
+  --ink-soft:#6a5d6c; 
   --line:rgba(44,34,48,.12);
 
   --serif:'Fraunces',Georgia,serif;
@@ -29,7 +28,7 @@
   --ease-soft:cubic-bezier(.33,.1,.18,1);
 
   --gut:clamp(1.25rem,4vw,2.5rem);
-  --bay:clamp(4rem,9vw,8.5rem);   /* section vertical rhythm */
+  --bay:clamp(4rem,9vw,8.5rem); 
   --maxw:1240px;
 }
 
@@ -45,6 +44,7 @@ body{
   text-rendering:optimizeLegibility;
 }
 img{display:block;max-width:100%}
+img.zoomable{cursor:zoom-in; transition:transform 0.4s;}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 ::selection{background:var(--clay);color:var(--bone)}
@@ -55,6 +55,22 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}
 .lang-el [data-de]{display:none !important}
 .lang-de [data-el]{display:none !important}
+
+/* ---------- LIGHTBOX ---------- */
+#lightbox{
+  position:fixed;inset:0;z-index:10000;
+  background:rgba(36,23,38,0.95);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;
+  transition:opacity .4s,visibility .4s;
+  padding:2rem;cursor:zoom-out;
+}
+#lightbox.open{opacity:1;visibility:visible}
+#lightbox img{max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 30px 60px rgba(0,0,0,0.6);transform:scale(0.95);transition:transform .5s var(--ease-expo)}
+#lightbox.open img{transform:scale(1)}
+.lb-close{position:absolute;top:2rem;right:2rem;color:var(--bone);font-size:2rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;transition:color .3s;z-index:2;}
+.lb-close:hover{color:var(--rose)}
 
 /* ---------- LOADER ---------- */
 #loader{
@@ -75,18 +91,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   animation:arcRise 2.1s var(--ease-expo) .25s forwards;
 }
 .load-name{
-  position:relative;
-  font-family:var(--serif);
-  font-weight:400;
-  font-size:clamp(1.6rem,5vw,2.6rem);
-  color:var(--bone);
-  letter-spacing:.01em;
-  overflow:hidden;
+  position:relative;font-family:var(--serif);font-weight:400;
+  font-size:clamp(1.6rem,5vw,2.6rem);color:var(--bone);
+  letter-spacing:.01em;overflow:hidden;
 }
 .load-name span{display:inline-block;transform:translateY(110%);animation:lineUp .9s var(--ease-expo) forwards}
 .load-name span:nth-child(2){animation-delay:.12s}
+.load-prof{
+  position:relative;margin-top:1rem;font-size:clamp(0.7rem, 2vw, 0.85rem);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--apricot);opacity:0;
+  animation:fadeUp 1s var(--ease-expo) .6s forwards;
+}
 @keyframes arcRise{0%{opacity:0;transform:translateX(-50%) translateY(40%)}100%{opacity:.85;transform:translateX(-50%) translateY(0)}}
 @keyframes lineUp{to{transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
 /* ---------- NAV ---------- */
 header{
@@ -134,7 +152,8 @@ header.solid .cta{color:var(--night)}
 .lang-toggle button.on{opacity:1;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--clay)}
 .lang-toggle .sep{opacity:.35}
 
-.burger{display:none;width:30px;height:18px;position:relative;z-index:1001}
+/* Clear X for mobile burger */
+.burger{display:none;width:30px;height:20px;position:relative;z-index:1001}
 .burger span{position:absolute;left:0;height:1.5px;width:100%;background:var(--bone);transition:.4s var(--ease-expo)}
 header.solid .burger span{background:var(--night)}
 .burger span:nth-child(1){top:0}
@@ -180,7 +199,6 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
   padding-bottom:clamp(3rem,7vh,6rem);
   padding-top:clamp(7rem,14vh,10rem);
 }
-/* the dawn arc — the signature */
 .hero-arc{
   position:absolute;left:50%;bottom:-8%;
   width:min(150vw,1500px);aspect-ratio:1.7/1;
@@ -188,9 +206,7 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
   border-radius:50% 50% 0 0;
   background:
     radial-gradient(closest-side at 50% 100%, rgba(246,201,160,.95) 0%, rgba(226,162,151,.7) 28%, rgba(181,107,94,.35) 48%, transparent 70%);
-  filter:blur(2px);
-  pointer-events:none;
-  opacity:0;
+  filter:blur(2px); pointer-events:none; opacity:0;
   animation:heroArc 2.4s var(--ease-expo) .3s forwards;
 }
 .hero-grain{
@@ -212,9 +228,9 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
 .hero-eyebrow::before{content:"";width:34px;height:1px;background:var(--apricot);opacity:.7}
 .hero h1{
   font-family:var(--serif);font-weight:300;
-  font-size:clamp(2.6rem,7.4vw,6rem);
-  line-height:1.02;letter-spacing:-.015em;
-  max-width:16ch;
+  font-size:clamp(2.6rem,7.4vw,5.5rem);
+  line-height:1.05;letter-spacing:-.015em;
+  max-width:18ch;
 }
 .hero h1 .ln{display:block;overflow:hidden}
 .hero h1 .ln span{display:block;transform:translateY(110%);animation:lineUp 1s var(--ease-expo) forwards}
@@ -225,7 +241,7 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
 .hero-sub{
   margin-top:clamp(1.4rem,3vw,2rem);
   font-size:clamp(1rem,1.5vw,1.18rem);
-  max-width:46ch;color:rgba(247,241,234,.78);font-weight:300;line-height:1.7;
+  max-width:50ch;color:rgba(247,241,234,.78);font-weight:300;line-height:1.7;
   opacity:0;animation:fadeUp 1s var(--ease-expo) 1.15s forwards;
 }
 .hero-actions{margin-top:clamp(1.8rem,4vw,2.6rem);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;
@@ -241,7 +257,6 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
 .btn-ghost{color:var(--bone);border:1px solid rgba(247,241,234,.4)}
 .btn-ghost:hover{border-color:var(--bone);background:rgba(247,241,234,.07)}
 .btn svg{width:16px;height:16px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .scroll-cue{
   position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:3;
@@ -251,21 +266,6 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
 .scroll-cue .dot{width:1px;height:42px;background:linear-gradient(var(--apricot),transparent);position:relative;overflow:hidden}
 .scroll-cue .dot::after{content:"";position:absolute;top:0;left:0;width:100%;height:40%;background:var(--bone);animation:cue 1.8s var(--ease-soft) infinite}
 @keyframes cue{0%{transform:translateY(-100%)}60%,100%{transform:translateY(260%)}}
-
-/* ---------- MARQUEE ---------- */
-.marquee{
-  background:var(--clay);color:var(--bone);
-  padding-block:.95rem;overflow:hidden;white-space:nowrap;
-  border-block:1px solid rgba(247,241,234,.15);
-}
-.marquee-track{display:inline-flex;gap:2.6rem;animation:scrollX 34s linear infinite;will-change:transform}
-.marquee:hover .marquee-track{animation-play-state:paused}
-.marquee span{
-  font-family:var(--serif);font-size:clamp(1rem,1.8vw,1.35rem);font-weight:400;
-  font-style:italic;display:inline-flex;align-items:center;gap:2.6rem;
-}
-.marquee span::after{content:"✦";font-style:normal;font-size:.6em;opacity:.7}
-@keyframes scrollX{to{transform:translateX(-50%)}}
 
 /* ---------- SECTION SHELL ---------- */
 .section{padding-block:var(--bay)}
@@ -329,27 +329,24 @@ h2.title em{font-style:italic;color:var(--clay)}
 .stat .num{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,5vw,4rem);line-height:1;color:var(--apricot)}
 .stat .lab{margin-top:.7rem;font-size:.84rem;color:rgba(247,241,234,.7);font-weight:300;letter-spacing:.02em;max-width:22ch}
 
-/* ---------- AREAS / SERVICES ACCORDION ---------- */
+/* ---------- SERVICES SCROLL PATH ---------- */
 .areas{background:var(--bone-2)}
-.areas-head{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:end;margin-bottom:clamp(2.5rem,5vw,4rem)}
-.acc{border-top:1px solid var(--line)}
-.acc-item{border-bottom:1px solid var(--line)}
-.acc-btn{
-  width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;
-  padding-block:clamp(1.1rem,2.4vw,1.7rem);text-align:left;transition:padding-left .4s var(--ease-expo);
+.areas-head{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:end;margin-bottom:clamp(3.5rem,6vw,5rem)}
+.svc-container{position:relative;max-width:900px;}
+.svc-track{position:absolute;left:13px;top:20px;bottom:40px;width:2px;background:rgba(44,34,48,.08);}
+.svc-fill{position:absolute;left:-1px;top:0;width:4px;height:0%;background:var(--clay);border-radius:4px;transition:height 0.1s linear;}
+.svc-node{position:relative;padding-left:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3.5rem,6vw,5rem);}
+.svc-node::before{
+  content:"";position:absolute;left:6px;top:0.4rem;width:16px;height:16px;
+  border-radius:50%;background:var(--bone-2);border:2px solid rgba(44,34,48,.15);
+  z-index:2;transition:all .5s var(--ease-expo);
 }
-.acc-btn:hover{padding-left:.6rem}
-.acc-idx{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--clay);font-weight:400;min-width:2.4ch}
-.acc-ttl{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,2.6vw,1.8rem);color:var(--night);line-height:1.2;letter-spacing:-.01em}
-.acc-ico{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex-shrink:0;transition:transform .5s var(--ease-expo),background .4s,border-color .4s}
-.acc-ico svg{width:14px;height:14px;transition:transform .5s var(--ease-expo)}
-.acc-item.open .acc-ico{background:var(--clay);border-color:var(--clay)}
-.acc-item.open .acc-ico svg{transform:rotate(45deg);stroke:var(--bone)}
-.acc-panel{max-height:0;overflow:hidden;transition:max-height .55s var(--ease-expo)}
-.acc-inner{padding:0 0 clamp(1.3rem,2.6vw,1.9rem) calc(2.4ch + 1.2rem)}
-.acc-inner p{color:var(--ink-soft);font-weight:300;max-width:60ch;margin-bottom:1rem}
-.svc-list{display:flex;flex-wrap:wrap;gap:.55rem}
-.svc-list li{list-style:none;font-size:.82rem;color:var(--ink);background:var(--bone);border:1px solid var(--line);border-radius:8px;padding:.5em .9em}
+.svc-node.active::before{background:var(--bone);border-color:var(--clay);box-shadow:0 0 0 6px rgba(181,107,94,.15);}
+.svc-idx{font-family:var(--serif);font-style:italic;color:var(--clay);font-size:1.1rem;margin-bottom:.5rem;display:block}
+.svc-title-txt{font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.8vw,2rem);color:var(--night);line-height:1.15;margin-bottom:1rem;}
+.svc-desc{color:var(--ink-soft);font-weight:300;max-width:54ch;margin-bottom:1.2rem;}
+.svc-tags{display:flex;flex-wrap:wrap;gap:.55rem}
+.svc-tags li{list-style:none;font-size:.82rem;color:var(--ink);background:var(--bone);border:1px solid var(--line);border-radius:8px;padding:.4em .8em}
 
 /* ---------- PROCESS ---------- */
 .process{background:var(--bone)}
@@ -383,57 +380,33 @@ h2.title em{font-style:italic;color:var(--clay)}
 .philo-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,2.2vw,1.55rem);margin-bottom:.7rem;position:relative;z-index:2}
 .philo-card p{font-size:.92rem;color:rgba(247,241,234,.72);font-weight:300;position:relative;z-index:2}
 
-/* ---------- TESTIMONIALS ---------- */
+/* ---------- REVIEWS (VERTICAL ROTATOR) ---------- */
 .reviews{background:var(--bone-2);overflow:hidden}
-.rev-top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2rem,4vw,3rem)}
+.rev-top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2rem,4vw,3.5rem)}
 .rev-score{display:flex;align-items:baseline;gap:.6rem;flex-shrink:0}
 .rev-score .big{font-family:var(--serif);font-weight:300;font-size:clamp(3rem,6vw,4.6rem);color:var(--clay);line-height:1}
 .rev-score .of{font-size:.8rem;color:var(--ink-soft);letter-spacing:.04em}
 .rev-score .stars{color:var(--clay);font-size:1rem;letter-spacing:.1em}
-.rev-viewport{overflow:hidden}
-.rev-track{display:flex;gap:1.4rem;transition:transform .65s var(--ease-expo);will-change:transform}
-.rev-card{
-  flex:0 0 clamp(280px,calc(50% - .7rem),420px);
+.rev-rotator{position:relative;display:grid;}
+.rev-card-vert{
+  grid-area:1 / 1; opacity:0; visibility:hidden;
+  transform:translateY(15px) scale(0.98);
+  transition:all .8s var(--ease-expo);
   background:var(--bone);border:1px solid var(--line);border-radius:18px;
-  padding:clamp(1.6rem,3vw,2.2rem);display:flex;flex-direction:column;
+  padding:clamp(1.8rem,4vw,2.5rem);
+  display:flex;flex-direction:column;
 }
+.rev-card-vert.active{opacity:1;visibility:visible;transform:translateY(0) scale(1);z-index:2}
 .rev-q{color:var(--apricot);font-family:var(--serif);font-size:2.4rem;line-height:.6;margin-bottom:1rem;color:var(--clay)}
-.rev-text{color:var(--ink);font-weight:300;line-height:1.65;font-size:.98rem;margin-bottom:1.2rem;flex:1;
-  display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;transition:none}
-.rev-card.expanded .rev-text{-webkit-line-clamp:unset;overflow:visible}
-.rev-more{align-self:flex-start;font-size:.76rem;letter-spacing:.04em;color:var(--clay);font-weight:600;margin-bottom:1.2rem;
-  border-bottom:1px solid transparent;transition:border-color .3s}
-.rev-more:hover{border-color:var(--clay)}
+.rev-text{color:var(--ink);font-weight:300;line-height:1.65;font-size:1.02rem;margin-bottom:1.6rem;flex:1;}
 .rev-foot{display:flex;align-items:center;gap:.8rem;border-top:1px solid var(--line);padding-top:1.1rem}
 .rev-ava{width:42px;height:42px;border-radius:50%;background:var(--night);color:var(--apricot);
   display:grid;place-items:center;font-family:var(--serif);font-size:1.1rem;flex-shrink:0}
 .rev-meta b{display:block;font-size:.92rem;font-weight:600;color:var(--night)}
 .rev-meta span{font-size:.76rem;color:var(--ink-soft)}
-.rev-ctrl{display:flex;gap:.7rem;align-items:center;margin-top:clamp(1.8rem,3vw,2.4rem)}
-.rev-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--night);display:grid;place-items:center;
-  transition:background .35s,color .35s,transform .35s}
-.rev-btn:hover{background:var(--night);color:var(--bone)}
-.rev-btn svg{width:18px;height:18px}
-.rev-btn:disabled{opacity:.3;cursor:default}
-.rev-btn:disabled:hover{background:none;color:inherit}
-.rev-link{margin-left:auto;font-size:.8rem;color:var(--ink-soft);font-weight:500;display:inline-flex;align-items:center;gap:.4rem;transition:color .3s}
+.rev-link{margin-top:1.5rem;font-size:.85rem;color:var(--ink-soft);font-weight:500;display:inline-flex;align-items:center;gap:.4rem;transition:color .3s}
 .rev-link:hover{color:var(--clay)}
 .rev-link svg{width:14px;height:14px}
-
-/* ---------- FAQ ---------- */
-.faq{background:var(--bone)}
-.faq-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(2rem,5vw,4rem);align-items:start}
-.faq-list{border-top:1px solid var(--line)}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-q{width:100%;display:flex;justify-content:space-between;gap:1.2rem;align-items:center;padding-block:clamp(1.1rem,2.2vw,1.5rem);text-align:left}
-.faq-q span{font-weight:500;font-size:clamp(1rem,1.6vw,1.12rem);color:var(--night);line-height:1.35}
-.faq-sign{flex-shrink:0;width:22px;height:22px;position:relative}
-.faq-sign::before,.faq-sign::after{content:"";position:absolute;background:var(--clay);transition:transform .4s var(--ease-expo)}
-.faq-sign::before{top:50%;left:0;width:100%;height:1.5px;transform:translateY(-50%)}
-.faq-sign::after{left:50%;top:0;width:1.5px;height:100%;transform:translateX(-50%)}
-.faq-item.open .faq-sign::after{transform:translateX(-50%) scaleY(0)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-expo)}
-.faq-a p{color:var(--ink-soft);font-weight:300;padding-bottom:clamp(1.1rem,2.2vw,1.5rem);max-width:60ch}
 
 /* ---------- CONTACT ---------- */
 .contact{background:var(--night);color:var(--bone);position:relative;overflow:hidden}
@@ -478,7 +451,6 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   .stats-grid{grid-template-columns:repeat(2,1fr);gap:2rem 1.5rem}
   .proc-grid{grid-template-columns:repeat(2,1fr);gap:2rem}
   .philo-grid{grid-template-columns:1fr 1fr}
-  .faq-grid{grid-template-columns:1fr;gap:1.5rem}
   .contact-grid{grid-template-columns:1fr;gap:2.5rem}
   .areas-head{grid-template-columns:1fr}
 }
@@ -486,7 +458,6 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   .nav-links{display:none}
   .burger{display:block}
   .lang-toggle.desk{display:none}
-  .rev-card{flex:0 0 86%}
   .philo-grid{grid-template-columns:1fr}
   .proc-grid{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:1fr 1fr}
@@ -497,19 +468,23 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
   .hero-arc,.load-arc{opacity:.85!important;animation:none!important;transform:translateX(-50%)!important}
-  .hero h1 .ln span,.load-name span{transform:none!important;animation:none!important}
+  .hero h1 .ln span,.load-name span,.load-prof{transform:none!important;animation:none!important;opacity:1!important}
 }
 </style>
 </head>
 <body class="lang-el">
 
-<!-- ============ LOADER ============ -->
-<div id="loader" aria-hidden="true">
-  <div class="load-arc"></div>
-  <div class="load-name"><span>Ζαφειρία&nbsp;</span><span>Σταφυλά</span></div>
+<div id="lightbox" aria-hidden="true" aria-label="Προβολή εικόνας">
+  <div class="lb-close">✕</div>
+  <img src="" alt="" id="lbImg">
 </div>
 
-<!-- ============ NAV ============ -->
+<div id="loader" aria-hidden="true">
+  <div class="load-arc"></div>
+  <div class="load-name"><span>Ζαφειρία </span><span>Σταφυλά</span></div>
+  <div class="load-prof"><span data-el>Ψυχολόγος</span><span data-de>Psychologin</span></div>
+</div>
+
 <header id="header">
   <nav class="wrap nav" aria-label="Κύρια πλοήγηση">
     <a href="#top" class="brand" aria-label="Ζαφειρία Σταφυλά — Αρχική">
@@ -517,23 +492,22 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
     </a>
     <div class="nav-links">
       <a href="#about"><span data-el>Προφίλ</span><span data-de>Profil</span></a>
-      <a href="#areas"><span data-el>Υπηρεσίες</span><span data-de>Leistungen</span></a>
-      <a href="#process"><span data-el>Διαδικασία</span><span data-de>Ablauf</span></a>
+      <a href="#areas"><span data-el>Εξειδίκευση</span><span data-de>Schwerpunkte</span></a>
+      <a href="#process"><span data-el>Προσέγγιση</span><span data-de>Ansatz</span></a>
       <a href="#reviews"><span data-el>Αξιολογήσεις</span><span data-de>Bewertungen</span></a>
       <div class="lang-toggle desk" role="group" aria-label="Επιλογή γλώσσας">
         <button data-lang="el" class="on">EL</button><span class="sep">/</span><button data-lang="de">DE</button>
       </div>
-      <a href="#contact" class="cta"><span data-el>Κλείστε ραντεβού</span><span data-de>Termin buchen</span></a>
+      <a href="#contact" class="cta"><span data-el>Επικοινωνία</span><span data-de>Kontakt</span></a>
     </div>
     <button class="burger" id="burger" aria-label="Άνοιγμα μενού" aria-expanded="false"><span></span><span></span><span></span></button>
   </nav>
 </header>
 
-<!-- ============ MOBILE MENU ============ -->
 <div id="mobileMenu" aria-hidden="true">
   <a href="#about"><span data-el>Προφίλ</span><span data-de>Profil</span></a>
-  <a href="#areas"><span data-el>Υπηρεσίες</span><span data-de>Leistungen</span></a>
-  <a href="#process"><span data-el>Διαδικασία</span><span data-de>Ablauf</span></a>
+  <a href="#areas"><span data-el>Εξειδίκευση</span><span data-de>Schwerpunkte</span></a>
+  <a href="#process"><span data-el>Προσέγγιση</span><span data-de>Ansatz</span></a>
   <a href="#reviews"><span data-el>Αξιολογήσεις</span><span data-de>Bewertungen</span></a>
   <a href="#contact"><span data-el>Επικοινωνία</span><span data-de>Kontakt</span></a>
   <div class="lang-toggle" style="margin-top:2.5rem;font-size:1rem" role="group" aria-label="Sprache">
@@ -544,7 +518,6 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
 
 <main id="top">
 
-<!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-grain"></div>
   <div class="hero-arc"></div>
@@ -554,17 +527,17 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
       <span data-de>Psychologin · Kalamaria, Thessaloniki</span>
     </div>
     <h1 data-el>
-      <span class="ln"><span>Υπάρχει φως</span></span>
-      <span class="ln"><span>ακόμη και στις</span></span>
-      <span class="ln"><span><em>πιο σκοτεινές</em> ώρες.</span></span>
+      <span class="ln"><span>Επαναπροσδιορίζοντας</span></span>
+      <span class="ln"><span>την ισορροπία, με</span></span>
+      <span class="ln"><span><em>δικά σας</em> βήματα.</span></span>
     </h1>
     <h1 data-de>
-      <span class="ln"><span>Auch in den</span></span>
-      <span class="ln"><span>dunkelsten Stunden</span></span>
-      <span class="ln"><span>gibt es <em>Licht</em>.</span></span>
+      <span class="ln"><span>Das Gleichgewicht</span></span>
+      <span class="ln"><span>neu definieren, in</span></span>
+      <span class="ln"><span><em>Ihrem</em> eigenen Tempo.</span></span>
     </h1>
-    <p class="hero-sub" data-el>Ψυχολογική υποστήριξη με ζεστασιά και επιστημονική κατάρτιση — από την περιγεννητική περίοδο μέχρι τη διαχείριση του πένθους, του άγχους και της κατάθλιψης. Δια ζώσης στην Καλαμαριά ή online.</p>
-    <p class="hero-sub" data-de>Psychologische Begleitung mit Wärme und fachlicher Tiefe — von der perinatalen Phase bis zur Bewältigung von Trauer, Angst und Depression. Vor Ort in Kalamaria oder online.</p>
+    <p class="hero-sub" data-el>Ψυχολογική υποστήριξη με επιστημονική τεκμηρίωση και ανθρώπινη προσέγγιση. Εξειδίκευση στην περιγεννητική υγεία, το άγχος και τη διαχείριση πένθους. Συνεδρίες δια ζώσης στην Καλαμαριά ή online.</p>
+    <p class="hero-sub" data-de>Psychologische Begleitung mit wissenschaftlicher Fundierung und menschlichem Ansatz. Spezialisiert auf perinatale Gesundheit, Angstzustände und Trauerbewältigung. Vor Ort in Kalamaria oder online.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn btn-primary">
         <span data-el>Κλείστε ραντεβού</span><span data-de>Termin vereinbaren</span>
@@ -576,17 +549,6 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   <div class="scroll-cue"><span data-el>Κυλήστε</span><span data-de>Scrollen</span><div class="dot"></div></div>
 </section>
 
-<!-- ============ MARQUEE ============ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span data-el>Περιγεννητική φροντίδα</span><span data-el>Διαχείριση πένθους</span><span data-el>Άγχος & Στρες</span><span data-el>Κατάθλιψη</span><span data-el>Κρίσεις πανικού</span><span data-el>Συμβουλευτική γονέων</span><span data-el>Ψυχοθεραπεία online</span>
-    <span data-el>Περιγεννητική φροντίδα</span><span data-el>Διαχείριση πένθους</span><span data-el>Άγχος & Στρες</span><span data-el>Κατάθλιψη</span><span data-el>Κρίσεις πανικού</span><span data-el>Συμβουλευτική γονέων</span><span data-el>Ψυχοθεραπεία online</span>
-    <span data-de>Perinatale Begleitung</span><span data-de>Trauerbewältigung</span><span data-de>Angst & Stress</span><span data-de>Depression</span><span data-de>Panikattacken</span><span data-de>Elternberatung</span><span data-de>Online-Therapie</span>
-    <span data-de>Perinatale Begleitung</span><span data-de>Trauerbewältigung</span><span data-de>Angst & Stress</span><span data-de>Depression</span><span data-de>Panikattacken</span><span data-de>Elternberatung</span><span data-de>Online-Therapie</span>
-  </div>
-</div>
-
-<!-- ============ ABOUT ============ -->
 <section class="section about" id="about">
   <div class="wrap about-grid">
     <div class="about-portrait reveal">
@@ -622,7 +584,6 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   </div>
 </section>
 
-<!-- ============ STATS ============ -->
 <section class="section stats">
   <div class="arc-bg"></div>
   <div class="wrap stats-grid">
@@ -633,142 +594,108 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   </div>
 </section>
 
-<!-- ============ AREAS / SERVICES ============ -->
 <section class="section areas" id="areas">
   <div class="wrap">
     <div class="areas-head">
       <div class="reveal">
-        <div class="eyebrow"><span data-el>Τομείς στήριξης</span><span data-de>Schwerpunkte</span></div>
-        <h2 class="title" data-el>Πώς μπορώ να <em>βοηθήσω</em>.</h2>
-        <h2 class="title" data-de>Wie ich <em>helfen</em> kann.</h2>
+        <div class="eyebrow"><span data-el>Πεδία εξειδίκευσης</span><span data-de>Schwerpunkte</span></div>
+        <h2 class="title" data-el>Ο χώρος που δημιουργούμε <em>μαζί</em>.</h2>
+        <h2 class="title" data-de>Der Raum, den wir <em>gemeinsam</em> schaffen.</h2>
       </div>
-      <p class="lead reveal d1" data-el>Κάθε συνεδρία διαρκεί 60 λεπτά και προσαρμόζεται στις δικές σας ανάγκες. Οι συνεδρίες πραγματοποιούνται δια ζώσης στην Καλαμαριά ή online μέσω βιντεοκλήσης. Τα κόστη είναι ενδεικτικά και ενδέχεται να διαφοροποιηθούν ανάλογα με το περιστατικό.</p>
-      <p class="lead reveal d1" data-de>Jede Sitzung dauert 60 Minuten und richtet sich nach Ihren individuellen Bedürfnissen. Die Sitzungen finden vor Ort in Kalamaria oder online per Videoanruf statt. Die Preise sind Richtwerte und können je nach Fall variieren.</p>
+      <p class="lead reveal d1" data-el>Κάθε συνεδρία διαρκεί 60 λεπτά και προσαρμόζεται απόλυτα στις δικές σας ανάγκες. Η διαδικασία πραγματοποιείται με σεβασμό στον ρυθμό σας, δια ζώσης στην Καλαμαριά ή online.</p>
+      <p class="lead reveal d1" data-de>Jede Sitzung dauert 60 Minuten und richtet sich vollständig nach Ihren Bedürfnissen. Der Prozess wird in Ihrem Tempo durchgeführt, vor Ort in Kalamaria oder online.</p>
     </div>
 
-    <div class="acc" id="acc">
-      <!-- 1 -->
-      <div class="acc-item">
-        <button class="acc-btn" aria-expanded="false">
-          <span class="acc-idx">01</span>
-          <span class="acc-ttl" data-el>Περιγεννητική ψυχική υγεία</span><span class="acc-ttl" data-de>Perinatale psychische Gesundheit</span>
-          <span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-panel"><div class="acc-inner">
-          <p data-el>Η διαδρομή προς τη γονεϊκότητα δεν είναι πάντα γραμμική. Υποστηρίζω άτομα και ζευγάρια στην αντιμετώπιση του άγχους της γονιμότητας, στη διαχείριση του στρες της εξωσωματικής διαδικασίας και στην αντιμετώπιση της επιλόχειας κατάθλιψης.</p>
-          <ul class="svc-list" data-el><li>Άγχος γονιμότητας</li><li>Στρες εξωσωματικής</li><li>Επιλόχεια κατάθλιψη</li></ul>
-          <p data-de>Der Weg zur Elternschaft verläuft nicht immer geradlinig. Ich begleite Einzelpersonen und Paare bei Fruchtbarkeitsangst, beim Umgang mit dem Stress der künstlichen Befruchtung und bei der Behandlung postpartaler Depression.</p>
-          <ul class="svc-list" data-de><li>Fruchtbarkeitsangst</li><li>IVF-Stress</li><li>Postpartale Depression</li></ul>
-        </div></div>
+    <div class="svc-container" id="svcPath">
+      <div class="svc-track">
+        <div class="svc-fill" id="svcFill"></div>
       </div>
-      <!-- 2 -->
-      <div class="acc-item">
-        <button class="acc-btn" aria-expanded="false">
-          <span class="acc-idx">02</span>
-          <span class="acc-ttl" data-el>Διαχείριση πένθους</span><span class="acc-ttl" data-de>Trauerbewältigung</span>
-          <span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-panel"><div class="acc-inner">
-          <p data-el>Η απώλεια αφήνει ένα κενό που χρειάζεται χρόνο και στήριξη. Σας συνοδεύω στη διαδικασία του πένθους, με σεβασμό στον δικό σας ρυθμό και τα δικά σας συναισθήματα.</p>
-          <ul class="svc-list" data-el><li>Συμβουλευτική πένθους</li><li>Περιγεννητική απώλεια</li><li>Στήριξη σε δύσκολες μεταβάσεις</li></ul>
-          <p data-de>Ein Verlust hinterlässt eine Leere, die Zeit und Begleitung braucht. Ich gehe den Trauerprozess mit Ihnen — im Respekt vor Ihrem eigenen Tempo und Ihren Gefühlen.</p>
-          <ul class="svc-list" data-de><li>Trauerberatung</li><li>Perinataler Verlust</li><li>Begleitung in Übergängen</li></ul>
-        </div></div>
+
+      <div class="svc-node reveal">
+        <span class="svc-idx">01</span>
+        <h3 class="svc-title-txt" data-el>Περιγεννητική ψυχική υγεία</h3>
+        <h3 class="svc-title-txt" data-de>Perinatale psychische Gesundheit</h3>
+        <p class="svc-desc" data-el>Η διαδρομή προς τη γονεϊκότητα δεν είναι πάντα γραμμική. Υποστηρίζω άτομα και ζευγάρια στην αντιμετώπιση του άγχους της γονιμότητας, στη διαχείριση του στρες της εξωσωματικής διαδικασίας και στην αντιμετώπιση της επιλόχειας κατάθλιψης.</p>
+        <p class="svc-desc" data-de>Der Weg zur Elternschaft verläuft nicht immer geradlinig. Ich begleite Einzelpersonen und Paare bei Fruchtbarkeitsangst, beim Umgang mit dem Stress der künstlichen Befruchtung und bei der Behandlung postpartaler Depression.</p>
+        <ul class="svc-tags" data-el><li>Άγχος γονιμότητας</li><li>Στρες εξωσωματικής</li><li>Επιλόχεια κατάθλιψη</li></ul>
+        <ul class="svc-tags" data-de><li>Fruchtbarkeitsangst</li><li>IVF-Stress</li><li>Postpartale Depression</li></ul>
       </div>
-      <!-- 3 -->
-      <div class="acc-item">
-        <button class="acc-btn" aria-expanded="false">
-          <span class="acc-idx">03</span>
-          <span class="acc-ttl" data-el>Άγχος, στρες & κρίσεις πανικού</span><span class="acc-ttl" data-de>Angst, Stress & Panikattacken</span>
-          <span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-panel"><div class="acc-inner">
-          <p data-el>Με τη Γνωσιακή Συμπεριφορική Θεραπεία (CBT) δουλεύουμε μαζί ώστε να κατανοήσετε και να διαχειριστείτε το άγχος, το στρες, τις φοβίες και τις κρίσεις πανικού — αποκτώντας πρακτικά εργαλεία για την καθημερινότητα.</p>
-          <ul class="svc-list" data-el><li>Διαχείριση άγχους & στρες</li><li>Αντιμετώπιση φοβιών</li><li>Κρίσεις πανικού</li></ul>
-          <p data-de>Mit der kognitiven Verhaltenstherapie (CBT) arbeiten wir gemeinsam daran, Angst, Stress, Phobien und Panikattacken zu verstehen und zu bewältigen — mit praktischen Werkzeugen für den Alltag.</p>
-          <ul class="svc-list" data-de><li>Angst- & Stressbewältigung</li><li>Phobienbehandlung</li><li>Panikattacken</li></ul>
-        </div></div>
+
+      <div class="svc-node reveal">
+        <span class="svc-idx">02</span>
+        <h3 class="svc-title-txt" data-el>Διαχείριση πένθους & απώλειας</h3>
+        <h3 class="svc-title-txt" data-de>Trauerbewältigung & Verlust</h3>
+        <p class="svc-desc" data-el>Η απώλεια αφήνει ένα κενό που χρειάζεται χρόνο και στήριξη. Σας συνοδεύω με ασφάλεια στη διαδικασία του πένθους, σεβόμενη απόλυτα τον δικό σας ρυθμό και τη φύση των συναισθημάτων σας.</p>
+        <p class="svc-desc" data-de>Ein Verlust hinterlässt eine Leere, die Zeit und Begleitung braucht. Ich gehe den Trauerprozess sicher mit Ihnen — im vollen Respekt vor Ihrem eigenen Tempo und der Natur Ihrer Gefühle.</p>
+        <ul class="svc-tags" data-el><li>Συμβουλευτική πένθους</li><li>Περιγεννητική απώλεια</li><li>Μεταβάσεις</li></ul>
+        <ul class="svc-tags" data-de><li>Trauerberatung</li><li>Perinataler Verlust</li><li>Übergänge</li></ul>
       </div>
-      <!-- 4 -->
-      <div class="acc-item">
-        <button class="acc-btn" aria-expanded="false">
-          <span class="acc-idx">04</span>
-          <span class="acc-ttl" data-el>Κατάθλιψη & διαχείριση θυμού</span><span class="acc-ttl" data-de>Depression & Umgang mit Wut</span>
-          <span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-panel"><div class="acc-inner">
-          <p data-el>Στηρίζω άτομα που αντιμετωπίζουν κατάθλιψη και δυσκολίες στη διαχείριση του θυμού, βοηθώντας τα να ξαναβρούν ισορροπία, νόημα και ηπιότερη σχέση με τον εαυτό τους.</p>
-          <ul class="svc-list" data-el><li>Διαχείριση κατάθλιψης</li><li>Διαχείριση θυμού</li></ul>
-          <p data-de>Ich begleite Menschen mit Depression und Schwierigkeiten im Umgang mit Wut und helfe ihnen, Gleichgewicht, Sinn und einen sanfteren Bezug zu sich selbst wiederzufinden.</p>
-          <ul class="svc-list" data-de><li>Depressionsbewältigung</li><li>Umgang mit Wut</li></ul>
-        </div></div>
+
+      <div class="svc-node reveal">
+        <span class="svc-idx">03</span>
+        <h3 class="svc-title-txt" data-el>Άγχος, στρες & κρίσεις πανικού</h3>
+        <h3 class="svc-title-txt" data-de>Angst, Stress & Panikattacken</h3>
+        <p class="svc-desc" data-el>Μέσα από τη Γνωσιακή Συμπεριφορική Θεραπεία (CBT), συνεργαζόμαστε για να κατανοήσετε την πηγή του άγχους και των κρίσεων πανικού, ενσωματώνοντας πρακτικά εργαλεία αποφόρτισης στην καθημερινότητα.</p>
+        <p class="svc-desc" data-de>Mithilfe der kognitiven Verhaltenstherapie (CBT) arbeiten wir zusammen, um die Ursache von Angst und Panikattacken zu verstehen und praktische Entlastungswerkzeuge in den Alltag zu integrieren.</p>
+        <ul class="svc-tags" data-el><li>Διαχείριση στρες</li><li>Αντιμετώπιση φοβιών</li><li>Κρίσεις πανικού</li></ul>
+        <ul class="svc-tags" data-de><li>Stressbewältigung</li><li>Phobienbehandlung</li><li>Panikattacken</li></ul>
       </div>
-      <!-- 5 -->
-      <div class="acc-item">
-        <button class="acc-btn" aria-expanded="false">
-          <span class="acc-idx">05</span>
-          <span class="acc-ttl" data-el>Σεξουαλικός προσανατολισμός & ταυτότητα</span><span class="acc-ttl" data-de>Sexuelle Orientierung & Identität</span>
-          <span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-panel"><div class="acc-inner">
-          <p data-el>Προσφέρω έναν ασφαλή, χωρίς κρίση χώρο για θέματα σεξουαλικού προσανατολισμού και ταυτότητας φύλου, καθώς και εξειδικευμένη στήριξη σε σεξουαλικές διαταραχές.</p>
-          <ul class="svc-list" data-el><li>Θέματα σεξ. προσανατολισμού</li><li>Ταυτότητα φύλου</li><li>Σεξουαλικές διαταραχές</li></ul>
-          <p data-de>Ich biete einen sicheren, urteilsfreien Raum für Themen rund um sexuelle Orientierung und Geschlechtsidentität sowie spezialisierte Begleitung bei sexuellen Funktionsstörungen.</p>
-          <ul class="svc-list" data-de><li>Sexuelle Orientierung</li><li>Geschlechtsidentität</li><li>Sexuelle Funktionsstörungen</li></ul>
-        </div></div>
+
+      <div class="svc-node reveal">
+        <span class="svc-idx">04</span>
+        <h3 class="svc-title-txt" data-el>Κατάθλιψη & διαχείριση θυμού</h3>
+        <h3 class="svc-title-txt" data-de>Depression & Umgang mit Wut</h3>
+        <p class="svc-desc" data-el>Στηρίζω άτομα που έρχονται αντιμέτωπα με την κατάθλιψη ή δυσκολεύονται στη διαχείριση του θυμού. Στόχος μας είναι να ξαναβρείτε την εσωτερική σας ισορροπία, το νόημα και μια πιο ήπια σχέση με τον εαυτό σας.</p>
+        <p class="svc-desc" data-de>Ich begleite Menschen, die mit Depressionen konfrontiert sind oder Schwierigkeiten im Umgang mit Wut haben. Unser Ziel ist es, Ihr inneres Gleichgewicht, den Sinn und einen sanfteren Bezug zu sich selbst wiederzufinden.</p>
+        <ul class="svc-tags" data-el><li>Διαχείριση κατάθλιψης</li><li>Διαχείριση θυμού</li><li>Συναισθηματική ρύθμιση</li></ul>
+        <ul class="svc-tags" data-de><li>Depressionsbewältigung</li><li>Umgang mit Wut</li><li>Emotionsregulation</li></ul>
       </div>
-      <!-- 6 -->
-      <div class="acc-item">
-        <button class="acc-btn" aria-expanded="false">
-          <span class="acc-idx">06</span>
-          <span class="acc-ttl" data-el>Συμβουλευτική γονέων & online συνεδρίες</span><span class="acc-ttl" data-de>Elternberatung & Online-Sitzungen</span>
-          <span class="acc-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="acc-panel"><div class="acc-inner">
-          <p data-el>Καθοδήγηση και στήριξη για γονείς σε κάθε φάση, με εξειδίκευση στη συμβουλευτική γονέων. Όλες οι υπηρεσίες είναι διαθέσιμες και μέσω βιντεοκλήσης, για στήριξη από όπου κι αν βρίσκεστε.</p>
-          <ul class="svc-list" data-el><li>Συμβουλευτική γονέων</li><li>Ψυχοθεραπεία online</li><li>Συνεδρία 60 λεπτά</li></ul>
-          <p data-de>Orientierung und Unterstützung für Eltern in jeder Phase, mit Spezialisierung auf Elternberatung. Alle Leistungen sind auch per Videoanruf verfügbar — Begleitung, wo immer Sie sind.</p>
-          <ul class="svc-list" data-de><li>Elternberatung</li><li>Online-Therapie</li><li>60-Minuten-Sitzung</li></ul>
-        </div></div>
+
+      <div class="svc-node reveal">
+        <span class="svc-idx">05</span>
+        <h3 class="svc-title-txt" data-el>Σεξουαλική ταυτότητα & διαταραχές</h3>
+        <h3 class="svc-title-txt" data-de>Sexuelle Identität & Funktionsstörungen</h3>
+        <p class="svc-desc" data-el>Προσφέρω έναν απόλυτα ασφαλή, χωρίς καμία κριτική χώρο για ζητήματα σεξουαλικού προσανατολισμού και ταυτότητας φύλου, καθώς και εξειδικευμένη στήριξη στην αντιμετώπιση σεξουαλικών διαταραχών.</p>
+        <p class="svc-desc" data-de>Ich biete einen absolut sicheren, urteilsfreien Raum für Themen rund um sexuelle Orientierung und Geschlechtsidentität sowie spezialisierte Unterstützung bei der Behandlung sexueller Funktionsstörungen.</p>
+        <ul class="svc-tags" data-el><li>Σεξουαλικός προσανατολισμός</li><li>Ταυτότητα φύλου</li><li>Σεξουαλικές διαταραχές</li></ul>
+        <ul class="svc-tags" data-de><li>Sexuelle Orientierung</li><li>Geschlechtsidentität</li><li>Sexuelle Funktionsstörungen</li></ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ PROCESS ============ -->
 <section class="section process" id="process">
   <div class="wrap">
-    <div class="reveal" style="max-width:46ch">
-      <div class="eyebrow"><span data-el>Η διαδρομή</span><span data-de>Der Weg</span></div>
-      <h2 class="title" data-el>Από το πρώτο βήμα <em>προς το φως</em>.</h2>
-      <h2 class="title" data-de>Vom ersten Schritt <em>ins Licht</em>.</h2>
+    <div class="reveal" style="max-width:54ch">
+      <div class="eyebrow"><span data-el>Η θεραπευτική διαδικασία</span><span data-de>Der therapeutische Prozess</span></div>
+      <h2 class="title" data-el>Ανοιχτός διάλογος, <em>σταθερά βήματα</em>.</h2>
+      <h2 class="title" data-de>Offener Dialog, <em>stetige Schritte</em>.</h2>
     </div>
     <div class="proc-grid">
       <div class="proc-step reveal"><span class="dot"></span><span class="proc-num">01</span>
-        <h3 data-el>Πρώτη επικοινωνία</h3><h3 data-de>Erster Kontakt</h3>
-        <p data-el>Επικοινωνείτε για να κλείσετε ένα ραντεβού. Μου περιγράφετε με δικά σας λόγια τι σας απασχολεί — χωρίς πίεση, με τον δικό σας ρυθμό.</p>
-        <p data-de>Sie melden sich für einen Termin. Sie schildern mit eigenen Worten, was Sie beschäftigt — ohne Druck, in Ihrem Tempo.</p>
+        <h3 data-el>Αφετηρία</h3><h3 data-de>Ausgangspunkt</h3>
+        <p data-el>Η πρώτη μας επικοινωνία. Σκιαγραφούμε μαζί τον λόγο που σας έφερε εδώ, σε ένα ασφαλή χώρο, απολύτως ελεύθερο από προσδοκίες και πιέσεις.</p>
+        <p data-de>Unser erster Kontakt. Wir skizzieren gemeinsam den Grund, der Sie hierher geführt hat, in einem sicheren Raum, völlig frei von Erwartungen und Druck.</p>
       </div>
       <div class="proc-step reveal d1"><span class="dot"></span><span class="proc-num">02</span>
-        <h3 data-el>Γνωριμία & αξιολόγηση</h3><h3 data-de>Kennenlernen & Einschätzung</h3>
-        <p data-el>Στην πρώτη συνεδρία γνωριζόμαστε και κατανοούμε μαζί την εικόνα. Εντοπίζουμε τι χρειάζεστε και τι σας θα βοηθούσε περισσότερο.</p>
-        <p data-de>In der ersten Sitzung lernen wir uns kennen und verstehen gemeinsam das Bild. Wir erkennen, was Sie brauchen und am meisten weiterhilft.</p>
+        <h3 data-el>Χαρτογράφηση</h3><h3 data-de>Orientierung</h3>
+        <p data-el>Ορίζουμε από κοινού τις προτεραιότητες και τους θεραπευτικούς στόχους, αναγνωρίζοντας με ειλικρίνεια τις εσωτερικές δυναμικές και τα μοτίβα συμπεριφοράς.</p>
+        <p data-de>Wir definieren gemeinsam Prioritäten und Therapieziele, indem wir innere Dynamiken und Verhaltensmuster ehrlich anerkennen.</p>
       </div>
       <div class="proc-step reveal d2"><span class="dot"></span><span class="proc-num">03</span>
-        <h3 data-el>Θεραπευτική συνεργασία</h3><h3 data-de>Therapeutische Zusammenarbeit</h3>
-        <p data-el>Με βάση τη CBT δουλεύουμε σε ένα πλάνο προσαρμοσμένο σε εσάς, αποκτώντας πρακτικά εργαλεία και νέες οπτικές.</p>
-        <p data-de>Auf Basis der CBT arbeiten wir an einem auf Sie zugeschnittenen Plan und gewinnen praktische Werkzeuge und neue Perspektiven.</p>
+        <h3 data-el>Εμβάθυνση</h3><h3 data-de>Vertiefung</h3>
+        <p data-el>Αξιοποιώντας εργαλεία της Γνωσιακής Συμπεριφορικής (CBT), δουλεύουμε στην κατανόηση και αναδόμηση των σκέψεων, χτίζοντας νέους τρόπους διαχείρισης.</p>
+        <p data-de>Mit Werkzeugen der Kognitiven Verhaltenstherapie (CBT) arbeiten wir daran, Gedanken zu verstehen und umzustrukturieren, um neue Bewältigungsstrategien aufzubauen.</p>
       </div>
       <div class="proc-step reveal d3"><span class="dot"></span><span class="proc-num">04</span>
-        <h3 data-el>Πρόοδος & αυτονομία</h3><h3 data-de>Fortschritt & Eigenständigkeit</h3>
-        <p data-el>Παρακολουθούμε την πρόοδό σας και εδραιώνουμε τις αλλαγές, ώστε να συνεχίσετε με αυτοπεποίθηση και αυτονομία.</p>
-        <p data-de>Wir verfolgen Ihren Fortschritt und festigen die Veränderungen, damit Sie selbstsicher und eigenständig weitergehen.</p>
+        <h3 data-el>Ενδυνάμωση</h3><h3 data-de>Stärkung</h3>
+        <p data-el>Αξιολογούμε την πρόοδο και εδραιώνουμε τις αλλαγές. Η θεραπεία ολοκληρώνεται σταδιακά, όταν νιώσετε την αυτοπεποίθηση να διαχειρίζεστε αυτόνομα την καθημερινότητα.</p>
+        <p data-de>Wir bewerten den Fortschritt und festigen die Veränderungen. Die Therapie schließt schrittweise ab, wenn Sie das Selbstvertrauen spüren, den Alltag eigenständig zu meistern.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ PHILOSOPHY ============ -->
 <section class="section philo">
   <div class="arc-bg"></div>
   <div class="wrap">
@@ -776,8 +703,8 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
       <div class="eyebrow" style="color:var(--apricot)"><span data-el>Η φιλοσοφία μου</span><span data-de>Meine Philosophie</span></div>
       <h2 class="title" data-el>Θεραπεία χτισμένη πάνω σε <em>εμπιστοσύνη</em>.</h2>
       <h2 class="title" data-de>Therapie, gebaut auf <em>Vertrauen</em>.</h2>
-      <p class="lead" data-el style="margin-top:1.2rem">Ό,τι ειπωθεί σε αυτόν τον χώρο μένει εδώ. Δεν παρέχεται ηλεκτρονική συνταγογράφηση — η δουλειά μας είναι καθαρά ψυχολογική υποστήριξη.</p>
-      <p class="lead" data-de style="margin-top:1.2rem">Was in diesem Raum gesagt wird, bleibt hier. Es erfolgt keine elektronische Verschreibung — unsere Arbeit ist rein psychologische Begleitung.</p>
+      <p class="lead" data-el style="margin-top:1.2rem">Ό,τι ειπωθεί σε αυτόν τον χώρο μένει αποκλειστικά εδώ. Η δουλειά μας εστιάζει καθαρά στην ψυχολογική υποστήριξη — δεν παρέχεται ηλεκτρονική συνταγογράφηση.</p>
+      <p class="lead" data-de style="margin-top:1.2rem">Was in diesem Raum gesagt wird, bleibt ausschließlich hier. Unsere Arbeit konzentriert sich rein auf psychologische Begleitung — es erfolgt keine elektronische Verschreibung.</p>
     </div>
     <div class="philo-grid">
       <div class="philo-card reveal">
@@ -788,26 +715,25 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
       </div>
       <div class="philo-card reveal d1">
         <div class="pc-ico"><svg viewBox="0 0 40 40"><path d="M8 24c4-8 20-8 24 0" stroke-linecap="round"/><circle cx="20" cy="14" r="5"/></svg></div>
-        <h3 data-el>Επιστήμη με ζεστασιά</h3><h3 data-de>Wissenschaft mit Wärme</h3>
-        <p data-el>Τεκμηριωμένες προσεγγίσεις όπως η CBT, προσφερμένες με ανθρωπιά, υπομονή και ειλικρινές ενδιαφέρον.</p>
-        <p data-de>Evidenzbasierte Ansätze wie CBT, vermittelt mit Menschlichkeit, Geduld und echtem Interesse.</p>
+        <h3 data-el>Επιστήμη με ενσυναίσθηση</h3><h3 data-de>Wissenschaft mit Empathie</h3>
+        <p data-el>Τεκμηριωμένες προσεγγίσεις όπως η CBT, εφαρμοσμένες με απόλυτο σεβασμό, υπομονή και ειλικρινές ενδιαφέρον.</p>
+        <p data-de>Evidenzbasierte Ansätze wie CBT, angewandt mit absolutem Respekt, Geduld und echtem Interesse.</p>
       </div>
       <div class="philo-card reveal d2">
         <div class="pc-ico"><svg viewBox="0 0 40 40"><path d="M20 8v24M12 16l8-8 8 8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3 data-el>Ο δικός σας ρυθμός</h3><h3 data-de>Ihr eigenes Tempo</h3>
-        <p data-el>Κάθε διαδρομή είναι μοναδική. Προχωράμε με τα βήματα που εσείς αντέχετε, χωρίς βιασύνη και χωρίς πίεση.</p>
-        <p data-de>Jeder Weg ist einzigartig. Wir gehen in den Schritten voran, die Sie tragen — ohne Eile, ohne Druck.</p>
+        <h3 data-el>Στον δικό σας χρόνο</h3><h3 data-de>In Ihrer eigenen Zeit</h3>
+        <p data-el>Κάθε άνθρωπος είναι διαφορετικός. Προχωράμε με τα βήματα που εσείς αντέχετε, χωρίς καμία απολύτως βιασύνη.</p>
+        <p data-de>Jeder Mensch ist anders. Wir gehen in den Schritten voran, die Sie tragen, ohne jegliche Eile.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ REVIEWS ============ -->
 <section class="section reviews" id="reviews">
   <div class="wrap">
     <div class="rev-top">
       <div class="reveal">
-        <div class="eyebrow"><span data-el>Λόγια ασθενών</span><span data-de>Stimmen von Patienten</span></div>
+        <div class="eyebrow"><span data-el>Λόγια ανθρώπων που συνεργαστήκαμε</span><span data-de>Worte von Menschen, mit denen wir gearbeitet haben</span></div>
         <h2 class="title" data-el>Αυτό που <em>μένει</em>.</h2>
         <h2 class="title" data-de>Was <em>bleibt</em>.</h2>
       </div>
@@ -817,68 +743,25 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
       </div>
     </div>
 
-    <div class="rev-viewport reveal">
-      <div class="rev-track" id="revTrack"><!-- JS injected --></div>
-    </div>
-
-    <div class="rev-ctrl">
-      <button class="rev-btn" id="revPrev" aria-label="Προηγούμενη αξιολόγηση"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button class="rev-btn" id="revNext" aria-label="Επόμενη αξιολόγηση"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <a class="rev-link" href="https://www.doctoranytime.gr/d/Psychologos/stafyla-zafeiria#review-section" target="_blank" rel="noopener">
-        <span data-el>Δείτε όλες τις αξιολογήσεις</span><span data-de>Alle Bewertungen ansehen</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
+    <div class="rev-rotator reveal" id="revRotator">
+      </div>
+    
+    <a class="rev-link reveal d2" href="https://www.doctoranytime.gr/d/Psychologos/stafyla-zafeiria#review-section" target="_blank" rel="noopener">
+      <span data-el>Δείτε όλες τις αξιολογήσεις στο Doctoranytime</span><span data-de>Alle Bewertungen auf Doctoranytime ansehen</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </div>
 </section>
 
-<!-- ============ FAQ ============ -->
-<section class="section faq" id="faq">
-  <div class="wrap faq-grid">
-    <div class="reveal">
-      <div class="eyebrow"><span data-el>Συχνές ερωτήσεις</span><span data-de>Häufige Fragen</span></div>
-      <h2 class="title" data-el>Καλό είναι να <em>ξέρετε</em>.</h2>
-      <h2 class="title" data-de>Gut zu <em>wissen</em>.</h2>
-    </div>
-    <div class="faq-list reveal d1" id="faqList">
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span data-el>Πόσο διαρκεί μια συνεδρία;</span><span data-de>Wie lange dauert eine Sitzung?</span><span class="faq-sign" aria-hidden="true"></span></button>
-        <div class="faq-a"><p data-el>Κάθε συνεδρία διαρκεί 60 λεπτά, είτε πραγματοποιείται δια ζώσης στο γραφείο στην Καλαμαριά είτε online μέσω βιντεοκλήσης.</p><p data-de>Jede Sitzung dauert 60 Minuten — ob vor Ort in der Praxis in Kalamaria oder online per Videoanruf.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span data-el>Προσφέρετε online συνεδρίες;</span><span data-de>Bieten Sie Online-Sitzungen an?</span><span class="faq-sign" aria-hidden="true"></span></button>
-        <div class="faq-a"><p data-el>Ναι. Όλες οι υπηρεσίες είναι διαθέσιμες και μέσω βιντεοκλήσης, ώστε να λαμβάνετε στήριξη από όπου κι αν βρίσκεστε, με την ίδια ποιότητα και αφοσίωση.</p><p data-de>Ja. Alle Leistungen sind auch per Videoanruf verfügbar, sodass Sie Unterstützung erhalten, wo immer Sie sind — mit derselben Qualität und Hingabe.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span data-el>Παρέχετε ηλεκτρονική συνταγογράφηση;</span><span data-de>Stellen Sie elektronische Rezepte aus?</span><span class="faq-sign" aria-hidden="true"></span></button>
-        <div class="faq-a"><p data-el>Όχι. Ως ψυχολόγος δεν παρέχω ηλεκτρονική συνταγογράφηση. Η συνεργασία μας εστιάζει στην ψυχολογική υποστήριξη και στη θεραπευτική διαδικασία.</p><p data-de>Nein. Als Psychologin stelle ich keine elektronischen Rezepte aus. Unsere Zusammenarbeit konzentriert sich auf psychologische Begleitung und den therapeutischen Prozess.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span data-el>Με ποια θεραπευτική προσέγγιση εργάζεστε;</span><span data-de>Mit welchem therapeutischen Ansatz arbeiten Sie?</span><span class="faq-sign" aria-hidden="true"></span></button>
-        <div class="faq-a"><p data-el>Εργάζομαι κυρίως με τη Γνωσιακή Συμπεριφορική Θεραπεία (CBT), μια τεκμηριωμένη προσέγγιση που προσφέρει πρακτικά εργαλεία για τη διαχείριση των σκέψεων, των συναισθημάτων και της συμπεριφοράς.</p><p data-de>Ich arbeite vorwiegend mit der kognitiven Verhaltenstherapie (CBT), einem evidenzbasierten Ansatz, der praktische Werkzeuge für den Umgang mit Gedanken, Gefühlen und Verhalten bietet.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span data-el>Τα κόστη είναι σταθερά;</span><span data-de>Sind die Preise fest?</span><span class="faq-sign" aria-hidden="true"></span></button>
-        <div class="faq-a"><p data-el>Τα κόστη που αναφέρονται είναι ενδεικτικά και ενδέχεται να υπάρξουν αλλαγές κατά την επίσκεψη, ανάλογα με το εκάστοτε περιστατικό και τις ανάγκες σας.</p><p data-de>Die angegebenen Preise sind Richtwerte und können beim Termin je nach Fall und Ihren Bedürfnissen variieren.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span data-el>Πώς κλείνω το πρώτο μου ραντεβού;</span><span data-de>Wie buche ich meinen ersten Termin?</span><span class="faq-sign" aria-hidden="true"></span></button>
-        <div class="faq-a"><p data-el>Μπορείτε να επικοινωνήσετε τηλεφωνικά ή μέσω email. Θα βρούμε μαζί μια ώρα που σας εξυπηρετεί και θα κάνουμε το πρώτο βήμα με τον δικό σας ρυθμό.</p><p data-de>Sie können mich telefonisch oder per E-Mail kontaktieren. Wir finden gemeinsam eine Zeit, die Ihnen passt, und machen den ersten Schritt in Ihrem Tempo.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CONTACT ============ -->
 <section class="section contact" id="contact">
   <div class="arc-bg"></div>
   <div class="wrap contact-grid">
     <div class="reveal">
       <div class="eyebrow" style="color:var(--apricot)"><span data-el>Επικοινωνία</span><span data-de>Kontakt</span></div>
-      <h2 class="title" data-el>Κάντε το <em>πρώτο βήμα</em>.</h2>
-      <h2 class="title" data-de>Machen Sie den <em>ersten Schritt</em>.</h2>
-      <p class="lead" data-el>Όποια κι αν είναι η ώρα της δικής σας διαδρομής, μπορούμε να την περπατήσουμε μαζί. Επικοινωνήστε για να κλείσετε ένα ραντεβού.</p>
-      <p class="lead" data-de>Wo immer Sie auf Ihrem Weg stehen — wir können ihn gemeinsam gehen. Kontaktieren Sie mich für einen Termin.</p>
+      <h2 class="title" data-el>Το <em>πρώτο βήμα</em>.</h2>
+      <h2 class="title" data-de>Der <em>erste Schritt</em>.</h2>
+      <p class="lead" data-el>Όποια κι αν είναι η δυσκολία της στιγμής, μπορούμε να την αντιμετωπίσουμε μαζί. Επικοινωνήστε για να κλείσετε τη συνεδρία σας.</p>
+      <p class="lead" data-de>Was auch immer die Schwierigkeit des Moments ist, wir können ihr gemeinsam begegnen. Kontaktieren Sie mich für Ihre Sitzung.</p>
       <div class="c-rows">
         <a class="c-row" href="https://maps.google.com/?q=Perikleous+46+Kalamaria+Thessaloniki" target="_blank" rel="noopener">
           <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5"/></svg></span>
@@ -906,7 +789,6 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
 
 </main>
 
-<!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap foot">
     <div class="fbrand">Ζαφειρία Σταφυλά<i data-el>Ψυχολόγος · Καλαμαριά</i><i data-de>Psychologin · Kalamaria</i></div>
@@ -953,58 +835,69 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
     b.addEventListener("click",()=>setLang(b.dataset.lang));
   });
 
-  /* ---- SERVICES ACCORDION ---- */
-  doc.querySelectorAll("#acc .acc-item").forEach(item=>{
-    const btn=item.querySelector(".acc-btn"), panel=item.querySelector(".acc-panel");
-    btn.addEventListener("click",()=>{
-      const open=item.classList.contains("open");
-      doc.querySelectorAll("#acc .acc-item").forEach(o=>{
-        o.classList.remove("open");
-        o.querySelector(".acc-btn").setAttribute("aria-expanded","false");
-        o.querySelector(".acc-panel").style.maxHeight=null;
+  /* ---- LIGHTBOX (ZOOM IMAGES) ---- */
+  const lb=doc.getElementById("lightbox"), lbImg=doc.getElementById("lbImg");
+  doc.querySelectorAll("img:not(#lbImg)").forEach(img=>{
+    img.classList.add("zoomable");
+    img.addEventListener("click",()=>{
+      lbImg.src=img.src;
+      lbImg.alt=img.alt;
+      lb.classList.add("open");
+      body.style.overflow="hidden";
+    });
+  });
+  lb.addEventListener("click",()=>{
+    lb.classList.remove("open");
+    body.style.overflow="";
+  });
+
+  /* ---- SERVICES SCROLL PATH ---- */
+  const svcPath = doc.getElementById('svcPath');
+  const svcFill = doc.getElementById('svcFill');
+  const svcNodes = doc.querySelectorAll('.svc-node');
+  
+  if(svcPath && svcFill) {
+    const updatePath = () => {
+      const rect = svcPath.getBoundingClientRect();
+      const wh = window.innerHeight;
+      
+      // Calculate how far the container has scrolled relative to the viewport center
+      let progress = (wh / 2 - rect.top) / rect.height;
+      progress = Math.max(0, Math.min(1, progress));
+      
+      svcFill.style.height = (progress * 100) + '%';
+      
+      // Highlight nodes as line passes them
+      svcNodes.forEach(node => {
+        const nodeRect = node.getBoundingClientRect();
+        if(nodeRect.top < wh / 2 + 20) {
+          node.classList.add('active');
+        } else {
+          node.classList.remove('active');
+        }
       });
-      if(!open){
-        item.classList.add("open");
-        btn.setAttribute("aria-expanded","true");
-        panel.style.maxHeight=panel.scrollHeight+"px";
-      }
-    });
-  });
+    };
+    window.addEventListener('scroll', updatePath, {passive:true});
+    updatePath();
+  }
 
-  /* ---- FAQ ACCORDION ---- */
-  doc.querySelectorAll("#faqList .faq-item").forEach(item=>{
-    const btn=item.querySelector(".faq-q"), ans=item.querySelector(".faq-a");
-    btn.addEventListener("click",()=>{
-      const open=item.classList.contains("open");
-      item.classList.toggle("open",!open);
-      btn.setAttribute("aria-expanded",!open);
-      ans.style.maxHeight=open?null:ans.scrollHeight+"px";
-    });
-  });
-
-  /* ---- REVIEWS CAROUSEL ---- */
+  /* ---- REVIEWS VERTICAL ROTATOR ---- */
   const reviews=[
     {n:"Ευαγγελία",t_el:"Άψογη επαγγελματίας, με σωστό τρόπο προσέγγισης.",t_de:"Eine makellose Fachfrau mit der richtigen Herangehensweise.",d_el:"Απρίλιος 2026",d_de:"April 2026"},
-    {n:"Θωμαή",t_el:"Ήταν πολύ καλή επαγγελματίας και άνθρωπος.",t_de:"Sie war eine sehr gute Fachfrau und ein sehr guter Mensch.",d_el:"Μάρτιος 2026",d_de:"März 2026"},
-    {n:"Yota",t_el:"Εξαίρετη επαγγελματίας! Ευχαριστώ θερμά!",t_de:"Eine hervorragende Fachfrau! Herzlichen Dank!",d_el:"Φεβρουάριος 2026",d_de:"Februar 2026"},
     {n:"Stella",t_el:"Σε κάνει να νιώθεις άνετα από την πρώτη στιγμή. Έχει την απαραίτητη κατάρτιση και διάθεση να σε βοηθήσει. Εντοπίζει το πρόβλημα από την 1η συνεδρία.",t_de:"Sie gibt einem von der ersten Minute an ein Gefühl von Geborgenheit. Sie hat die nötige Ausbildung und den Willen zu helfen. Sie erkennt das Problem schon in der ersten Sitzung.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
-    {n:"Σταύρος",t_el:"Πολύ καλή, με κατανόηση και εμπειρία.",t_de:"Sehr gut, mit Verständnis und Erfahrung.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
-    {n:"Dennis",t_el:"Είμαι βαθιά ευγνώμων στη Ζαφειρία. Είναι ζεστή, με ενσυναίσθηση και πάντα συνεπής. Από την αρχή ένιωσα ασφάλεια και ότι με κατανοούν πραγματικά. Η άμεση στήριξη και οι ξεκάθαρες συμβουλές της έκαναν αληθινή διαφορά στη ζωή μου. Τη συστήνω ανεπιφύλακτα.",t_de:"Ich bin Zafeiria sehr dankbar. Sie ist warmherzig, einfühlsam und immer pünktlich. Von Anfang an habe ich mich sicher und verstanden gefühlt. Ihre direkte Hilfe und klaren Ratschläge haben mir sehr geholfen. Ich kann sie jedem empfehlen, der eine zuverlässige und einfühlsame Psychologin sucht.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
-    {n:"Ελευθερία",t_el:"Πολύ φιλική και καταρτισμένη! Πολύ καλή αρχή. Θα υπάρξει σίγουρα συνέχιση επισκέψεων.",t_de:"Sehr freundlich und kompetent! Ein sehr guter Anfang. Weitere Besuche werden sicher folgen.",d_el:"Μάρτιος 2025",d_de:"März 2025"},
+    {n:"Dennis",t_el:"Είμαι βαθιά ευγνώμων στη Ζαφειρία. Είναι ζεστή, με ενσυναίσθηση και πάντα συνεπής. Από την αρχή ένιωσα ασφάλεια και ότι με κατανοούν πραγματικά. Η άμεση στήριξη και οι ξεκάθαρες συμβουλές της έκαναν αληθινή διαφορά στη ζωή μου.",t_de:"Ich bin Zafeiria sehr dankbar. Sie ist warmherzig, einfühlsam und immer pünktlich. Von Anfang an habe ich mich sicher und verstanden gefühlt. Ihre direkte Hilfe und klaren Ratschläge haben mir sehr geholfen.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
     {n:"Δημήτριος",t_el:"Πάνω από όλα άνθρωπος που σου εμπνέει εμπιστοσύνη, έτοιμη να βοηθήσει σε κάθε στιγμή που τη χρειάζεσαι — γεγονότα που την καθιστούν κορυφαία επιστήμονα στη συνείδησή μου.",t_de:"Vor allem ein Mensch, der Vertrauen einflößt, bereit zu helfen, wann immer man sie braucht — Dinge, die sie in meinem Bewusstsein zu einer herausragenden Wissenschaftlerin machen.",d_el:"Μάρτιος 2025",d_de:"März 2025"},
-    {n:"Εμμανουέλα",t_el:"Έχουμε κάνει μόνο 4 συνεδρίες και ήδη έχω δει βελτίωση στον εαυτό μου. Νιώθω τυχερή που την βρήκα και μου έχει δώσει ελπίδες για το μέλλον μου.",t_de:"Wir haben erst 4 Sitzungen gemacht und schon sehe ich eine Verbesserung an mir. Ich fühle mich glücklich, sie gefunden zu haben, und sie hat mir Hoffnung für meine Zukunft gegeben.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"},
-    {n:"Εμμανουέλα",t_el:"Ένιωσα πραγματικά άνετα και ασφάλεια από την πρώτη κιόλας συνεδρία, και γενικά είμαι άνθρωπος που δεν τα βρίσκει εύκολα με άλλους. Νιώθω ανακούφιση που βρήκα τον άνθρωπο που ξέρω ότι θα με βοηθήσει.",t_de:"Ich habe mich schon in der allerersten Sitzung wirklich wohl und sicher gefühlt, und ich bin generell ein Mensch, der nicht leicht mit anderen klarkommt. Ich bin erleichtert, den Menschen gefunden zu haben, von dem ich weiß, dass er mir helfen wird.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"},
-    {n:"Sissy",t_el:"Οι τεχνικές που διδάχθηκα — χαλάρωση, διαχείριση χρόνου, ανάπτυξη θετικής ενέργειας — με βοήθησαν σημαντικά στις καθημερινές προκλήσεις. Από την πρώτη στιγμή ένιωσα άνετα, σε ένα περιβάλλον γεμάτο κατανόηση και επαγγελματισμό. Σας ευχαριστώ πολύ.",t_de:"Die Techniken, die ich gelernt habe — Entspannung, Zeitmanagement, Aufbau positiver Energie — haben mir sehr geholfen, die täglichen Herausforderungen zu meistern. Von der ersten Minute an fühlte ich mich wohl, in einer Umgebung voller Verständnis und Professionalität. Vielen Dank.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"}
+    {n:"Εμμανουέλα",t_el:"Ένιωσα πραγματικά άνετα και ασφάλεια από την πρώτη κιόλας συνεδρία. Νιώθω ανακούφιση που βρήκα τον άνθρωπο που ξέρω ότι θα με βοηθήσει και μου έχει δώσει ελπίδες για το μέλλον μου.",t_de:"Ich habe mich schon in der allerersten Sitzung wirklich wohl und sicher gefühlt. Ich bin erleichtert, den Menschen gefunden zu haben, von dem ich weiß, dass er mir helfen wird und mir Hoffnung für meine Zukunft gegeben hat.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"},
+    {n:"Sissy",t_el:"Οι τεχνικές που διδάχθηκα με βοήθησαν σημαντικά στις καθημερινές προκλήσεις. Από την πρώτη στιγμή ένιωσα άνετα, σε ένα περιβάλλον γεμάτο κατανόηση και επαγγελματισμό. Σας ευχαριστώ πολύ.",t_de:"Die Techniken, die ich gelernt habe, haben mir sehr geholfen, die täglichen Herausforderungen zu meistern. Von der ersten Minute an fühlte ich mich wohl, in einer Umgebung voller Verständnis. Vielen Dank.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"}
   ];
-  const track=doc.getElementById("revTrack");
-  if(track){
+  
+  const rot = doc.getElementById("revRotator");
+  if(rot){
     const initials=n=>n.trim().charAt(0).toUpperCase();
-    track.innerHTML=reviews.map(r=>{
-      const long_el=r.t_el.length>150, long_de=r.t_de.length>150;
-      return `<article class="rev-card">
-        <div class="rev-q" aria-hidden="true">&ldquo;</div>
+    rot.innerHTML=reviews.map((r, i)=>{
+      return `<article class="rev-card-vert ${i===0?'active':''}">
+        <div class="rev-q" aria-hidden="true">“</div>
         <p class="rev-text"><span data-el>${r.t_el}</span><span data-de>${r.t_de}</span></p>
-        ${(long_el||long_de)?`<button class="rev-more"><span data-el>Διαβάστε περισσότερα</span><span data-de>Mehr lesen</span></button>`:""}
         <div class="rev-foot">
           <div class="rev-ava" aria-hidden="true">${initials(r.n)}</div>
           <div class="rev-meta"><b>${r.n}</b><span class="stars" style="color:var(--clay)">★★★★★</span> <span>· ${`<span data-el>${r.d_el}</span><span data-de>${r.d_de}</span>`}</span></div>
@@ -1012,49 +905,15 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
       </article>`;
     }).join("");
 
-    // expand toggles
-    track.querySelectorAll(".rev-more").forEach(btn=>{
-      btn.addEventListener("click",()=>{
-        const card=btn.closest(".rev-card");
-        const exp=card.classList.toggle("expanded");
-        btn.querySelectorAll("[data-el]").forEach(s=>s.textContent=exp?"Λιγότερα":"Διαβάστε περισσότερα");
-        btn.querySelectorAll("[data-de]").forEach(s=>s.textContent=exp?"Weniger":"Mehr lesen");
-        updateTrack(idx);
-      });
-    });
-
-    const cards=track.querySelectorAll(".rev-card");
-    const prev=doc.getElementById("revPrev"), next=doc.getElementById("revNext");
-    let idx=0;
-    const perView=()=>window.innerWidth<=680?1:2;
-    const maxIdx=()=>Math.max(0,cards.length-perView());
-    const updateTrack=()=>{
-      idx=Math.min(idx,maxIdx());
-      const card=cards[0];
-      const style=getComputedStyle(track);
-      const gap=parseFloat(style.columnGap||style.gap||"22")||22;
-      const step=card.getBoundingClientRect().width+gap;
-      track.style.transform=`translateX(${-idx*step}px)`;
-      prev.disabled=idx<=0; next.disabled=idx>=maxIdx();
-    };
-    const go=d=>{idx=Math.max(0,Math.min(maxIdx(),idx+d));updateTrack();};
-    next.addEventListener("click",()=>go(1));
-    prev.addEventListener("click",()=>go(-1));
-
-    // autoscroll
-    let timer=setInterval(()=>{idx=idx>=maxIdx()?0:idx+1;updateTrack();},5500);
-    const vp=track.parentElement;
-    ["mouseenter","focusin","touchstart"].forEach(e=>vp.addEventListener(e,()=>clearInterval(timer)));
-    window.addEventListener("resize",updateTrack);
-    requestAnimationFrame(updateTrack);
-
-    // swipe
-    let sx=0;
-    vp.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});
-    vp.addEventListener("touchend",e=>{
-      const dx=e.changedTouches[0].clientX-sx;
-      if(Math.abs(dx)>45)go(dx<0?1:-1);
-    },{passive:true});
+    const cards = rot.querySelectorAll('.rev-card-vert');
+    let rIdx = 0;
+    if(cards.length > 1){
+      setInterval(()=>{
+        cards[rIdx].classList.remove('active');
+        rIdx = (rIdx + 1) % cards.length;
+        cards[rIdx].classList.add('active');
+      }, 3000);
+    }
   }
 
   /* ---- SCROLL REVEAL ---- */
