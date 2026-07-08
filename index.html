@@ -10,16 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#241726; 
-  --night-2:#34203a; 
-  --clay:#b56b5e; 
-  --rose:#e2a297; 
-  --apricot:#f6c9a0; 
-  --bone:#f7f1ea; 
-  --bone-2:#efe5da; 
-  --ink:#2c2230; 
-  --ink-soft:#6a5d6c; 
-  --line:rgba(44,34,48,.12);
+  --night:#00798C; 
+  --night-2:#006070; 
+  --clay:#15A6B4; 
+  --rose:#55BDC3; 
+  --apricot:#81CCCF; 
+  --bone:#F0F8F8; 
+  --bone-2:#E4F2F1; 
+  --ink:#052F36; 
+  --ink-soft:#39646A; 
+  --line:rgba(5,47,54,.12);
 
   --serif:'Fraunces',Georgia,serif;
   --sans:'Inter',system-ui,sans-serif;
@@ -59,7 +59,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* ---------- LIGHTBOX ---------- */
 #lightbox{
   position:fixed;inset:0;z-index:10000;
-  background:rgba(36,23,38,0.95);
+  background:rgba(0,121,140,0.95);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   display:flex;align-items:center;justify-content:center;
   opacity:0;visibility:hidden;
@@ -113,7 +113,7 @@ header{
   padding-block:clamp(1rem,2vw,1.5rem);
 }
 header.solid{
-  background:rgba(247,241,234,.82);
+  background:rgba(240,248,248,.82);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   box-shadow:0 1px 0 var(--line);
   padding-block:.7rem;
@@ -205,16 +205,16 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
   transform:translateX(-50%);
   border-radius:50% 50% 0 0;
   background:
-    radial-gradient(closest-side at 50% 100%, rgba(246,201,160,.95) 0%, rgba(226,162,151,.7) 28%, rgba(181,107,94,.35) 48%, transparent 70%);
+    radial-gradient(closest-side at 50% 100%, rgba(129,204,207,.95) 0%, rgba(85,189,195,.7) 28%, rgba(21,166,180,.35) 48%, transparent 70%);
   filter:blur(2px); pointer-events:none; opacity:0;
   animation:heroArc 2.4s var(--ease-expo) .3s forwards;
 }
 .hero-grain{
   position:absolute;inset:0;pointer-events:none;opacity:.5;
   background:
-    radial-gradient(1px 1px at 20% 30%, rgba(247,241,234,.4) 50%, transparent 50%),
-    radial-gradient(1px 1px at 70% 60%, rgba(247,241,234,.3) 50%, transparent 50%),
-    radial-gradient(1px 1px at 40% 80%, rgba(247,241,234,.25) 50%, transparent 50%);
+    radial-gradient(1px 1px at 20% 30%, rgba(240,248,248,.4) 50%, transparent 50%),
+    radial-gradient(1px 1px at 70% 60%, rgba(240,248,248,.3) 50%, transparent 50%),
+    radial-gradient(1px 1px at 40% 80%, rgba(240,248,248,.25) 50%, transparent 50%);
   background-size:140px 140px,200px 200px,170px 170px;
 }
 @keyframes heroArc{from{opacity:0;transform:translateX(-50%) translateY(18%) scale(.96)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
@@ -241,7 +241,7 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
 .hero-sub{
   margin-top:clamp(1.4rem,3vw,2rem);
   font-size:clamp(1rem,1.5vw,1.18rem);
-  max-width:50ch;color:rgba(247,241,234,.78);font-weight:300;line-height:1.7;
+  max-width:50ch;color:rgba(240,248,248,.78);font-weight:300;line-height:1.7;
   opacity:0;animation:fadeUp 1s var(--ease-expo) 1.15s forwards;
 }
 .hero-actions{margin-top:clamp(1.8rem,4vw,2.6rem);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;
@@ -254,13 +254,13 @@ body.menu-open #mobileMenu a:nth-child(5){transition-delay:.46s}
 }
 .btn-primary{background:var(--bone);color:var(--night)}
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.28);background:var(--apricot)}
-.btn-ghost{color:var(--bone);border:1px solid rgba(247,241,234,.4)}
-.btn-ghost:hover{border-color:var(--bone);background:rgba(247,241,234,.07)}
+.btn-ghost{color:var(--bone);border:1px solid rgba(240,248,248,.4)}
+.btn-ghost:hover{border-color:var(--bone);background:rgba(240,248,248,.07)}
 .btn svg{width:16px;height:16px}
 .scroll-cue{
   position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:3;
-  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,241,234,.5);
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,248,248,.5);
   opacity:0;animation:fadeUp 1s 1.6s forwards;
 }
 .scroll-cue .dot{width:1px;height:42px;background:linear-gradient(var(--apricot),transparent);position:relative;overflow:hidden}
@@ -289,7 +289,7 @@ h2.title em{font-style:italic;color:var(--clay)}
 .about-portrait .frame{
   position:relative;border-radius:200px 200px 14px 14px;overflow:hidden;
   aspect-ratio:3/3.7;background:var(--night-2);
-  box-shadow:0 30px 70px rgba(36,23,38,.22);
+  box-shadow:0 30px 70px rgba(0,121,140,.22);
 }
 .about-portrait img{width:100%;height:100%;object-fit:cover;object-position:center top}
 .about-portrait .glow{
@@ -303,7 +303,7 @@ h2.title em{font-style:italic;color:var(--clay)}
   position:absolute;top:1.3rem;right:-1.2rem;
   background:var(--night);color:var(--bone);border-radius:100px;
   padding:.7em 1.2em;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
-  box-shadow:0 12px 30px rgba(36,23,38,.3);font-weight:500;
+  box-shadow:0 12px 30px rgba(0,121,140,.3);font-weight:500;
 }
 .about-copy h2.title{margin-bottom:1.5rem}
 .about-copy p{color:var(--ink-soft);font-weight:300;margin-bottom:1.1rem;max-width:52ch}
@@ -324,29 +324,41 @@ h2.title em{font-style:italic;color:var(--clay)}
 .stats{background:var(--night);color:var(--bone);position:relative;overflow:hidden}
 .stats .arc-bg{position:absolute;left:50%;top:-60%;width:min(130vw,1100px);aspect-ratio:2/1;transform:translateX(-50%);
   border-radius:0 0 50% 50%;
-  background:radial-gradient(closest-side at 50% 0%, rgba(226,162,151,.4),transparent 70%);pointer-events:none}
+  background:radial-gradient(closest-side at 50% 0%, rgba(85,189,195,.4),transparent 70%);pointer-events:none}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.5rem,3vw,3rem);position:relative;z-index:2;text-align:left}
 .stat .num{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,5vw,4rem);line-height:1;color:var(--apricot)}
-.stat .lab{margin-top:.7rem;font-size:.84rem;color:rgba(247,241,234,.7);font-weight:300;letter-spacing:.02em;max-width:22ch}
+.stat .lab{margin-top:.7rem;font-size:.84rem;color:rgba(240,248,248,.7);font-weight:300;letter-spacing:.02em;max-width:22ch}
 
 /* ---------- SERVICES SCROLL PATH ---------- */
 .areas{background:var(--bone-2)}
 .areas-head{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:end;margin-bottom:clamp(3.5rem,6vw,5rem)}
 .svc-container{position:relative;max-width:900px;}
-.svc-track{position:absolute;left:13px;top:20px;bottom:40px;width:2px;background:rgba(44,34,48,.08);}
+.svc-track{position:absolute;left:13px;top:20px;bottom:40px;width:2px;background:rgba(5,47,54,.08);}
 .svc-fill{position:absolute;left:-1px;top:0;width:4px;height:0%;background:var(--clay);border-radius:4px;transition:height 0.1s linear;}
 .svc-node{position:relative;padding-left:clamp(3rem,6vw,4.5rem);padding-bottom:clamp(3.5rem,6vw,5rem);}
 .svc-node::before{
   content:"";position:absolute;left:6px;top:0.4rem;width:16px;height:16px;
-  border-radius:50%;background:var(--bone-2);border:2px solid rgba(44,34,48,.15);
+  border-radius:50%;background:var(--bone-2);border:2px solid rgba(5,47,54,.15);
   z-index:2;transition:all .5s var(--ease-expo);
 }
-.svc-node.active::before{background:var(--bone);border-color:var(--clay);box-shadow:0 0 0 6px rgba(181,107,94,.15);}
+.svc-node.active::before{background:var(--bone);border-color:var(--clay);box-shadow:0 0 0 6px rgba(21,166,180,.15);}
 .svc-idx{font-family:var(--serif);font-style:italic;color:var(--clay);font-size:1.1rem;margin-bottom:.5rem;display:block}
 .svc-title-txt{font-family:var(--serif);font-weight:400;font-size:clamp(1.4rem,2.8vw,2rem);color:var(--night);line-height:1.15;margin-bottom:1rem;}
 .svc-desc{color:var(--ink-soft);font-weight:300;max-width:54ch;margin-bottom:1.2rem;}
 .svc-tags{display:flex;flex-wrap:wrap;gap:.55rem}
 .svc-tags li{list-style:none;font-size:.82rem;color:var(--ink);background:var(--bone);border:1px solid var(--line);border-radius:8px;padding:.4em .8em}
+
+/* ---------- SPACE GALLERY ---------- */
+.space-gallery{background:var(--bone-2); padding-top:0;}
+.space-duo{display:flex;align-items:center;justify-content:center;gap:clamp(1.5rem,3vw,3rem);}
+.space-duo img{
+  max-width:100%;
+  width:calc(50% - 1.5rem);
+  height:auto;
+  object-fit:contain;
+  border-radius:16px;
+  box-shadow:0 20px 50px rgba(0,121,140,0.15);
+}
 
 /* ---------- PROCESS ---------- */
 .process{background:var(--bone)}
@@ -361,24 +373,24 @@ h2.title em{font-style:italic;color:var(--clay)}
 /* ---------- PHILOSOPHY CARDS ---------- */
 .philo{background:var(--night);color:var(--bone);position:relative;overflow:hidden}
 .philo .arc-bg{position:absolute;right:-15%;bottom:-30%;width:min(80vw,700px);aspect-ratio:1;border-radius:50%;
-  background:radial-gradient(circle, rgba(181,107,94,.45),transparent 65%);pointer-events:none}
+  background:radial-gradient(circle, rgba(21,166,180,.45),transparent 65%);pointer-events:none}
 .philo h2.title{color:var(--bone)}
 .philo h2.title em{color:var(--rose)}
-.philo .lead{color:rgba(247,241,234,.72)}
+.philo .lead{color:rgba(240,248,248,.72)}
 .philo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:clamp(2.5rem,5vw,4rem);position:relative;z-index:2}
 .philo-card{
-  background:rgba(247,241,234,.04);border:1px solid rgba(247,241,234,.12);
+  background:rgba(240,248,248,.04);border:1px solid rgba(240,248,248,.12);
   border-radius:16px;padding:clamp(1.6rem,3vw,2.2rem);position:relative;overflow:hidden;
   transition:transform .5s var(--ease-expo),background .5s,border-color .5s;
 }
 .philo-card::after{content:"";position:absolute;left:0;top:0;height:100%;width:0;
-  background:linear-gradient(90deg,rgba(246,201,160,.08),transparent);transition:width .6s var(--ease-expo)}
-.philo-card:hover{transform:translateY(-6px);background:rgba(247,241,234,.07);border-color:rgba(246,201,160,.4)}
+  background:linear-gradient(90deg,rgba(129,204,207,.08),transparent);transition:width .6s var(--ease-expo)}
+.philo-card:hover{transform:translateY(-6px);background:rgba(240,248,248,.07);border-color:rgba(129,204,207,.4)}
 .philo-card:hover::after{width:100%}
 .philo-card .pc-ico{width:44px;height:44px;margin-bottom:1.3rem;color:var(--apricot)}
 .philo-card .pc-ico svg{width:100%;height:100%;stroke:var(--apricot);fill:none;stroke-width:1.2}
 .philo-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,2.2vw,1.55rem);margin-bottom:.7rem;position:relative;z-index:2}
-.philo-card p{font-size:.92rem;color:rgba(247,241,234,.72);font-weight:300;position:relative;z-index:2}
+.philo-card p{font-size:.92rem;color:rgba(240,248,248,.72);font-weight:300;position:relative;z-index:2}
 
 /* ---------- REVIEWS (VERTICAL ROTATOR) ---------- */
 .reviews{background:var(--bone-2);overflow:hidden}
@@ -411,23 +423,23 @@ h2.title em{font-style:italic;color:var(--clay)}
 /* ---------- CONTACT ---------- */
 .contact{background:var(--night);color:var(--bone);position:relative;overflow:hidden}
 .contact .arc-bg{position:absolute;left:50%;bottom:-20%;width:min(160vw,1400px);aspect-ratio:2/1;transform:translateX(-50%);
-  border-radius:50% 50% 0 0;background:radial-gradient(closest-side at 50% 100%, rgba(246,201,160,.35),transparent 68%);pointer-events:none}
+  border-radius:50% 50% 0 0;background:radial-gradient(closest-side at 50% 100%, rgba(129,204,207,.35),transparent 68%);pointer-events:none}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem);align-items:center;position:relative;z-index:2}
 .contact h2.title{color:var(--bone);margin-bottom:1.4rem}
 .contact h2.title em{color:var(--rose)}
-.contact .lead{color:rgba(247,241,234,.74);margin-bottom:2.2rem}
+.contact .lead{color:rgba(240,248,248,.74);margin-bottom:2.2rem}
 .c-rows{display:flex;flex-direction:column;gap:.2rem;margin-bottom:2.2rem}
-.c-row{display:flex;align-items:center;gap:1.1rem;padding-block:1rem;border-bottom:1px solid rgba(247,241,234,.12)}
-.c-row .ci{width:42px;height:42px;border-radius:50%;border:1px solid rgba(247,241,234,.25);display:grid;place-items:center;flex-shrink:0;transition:background .4s,border-color .4s}
+.c-row{display:flex;align-items:center;gap:1.1rem;padding-block:1rem;border-bottom:1px solid rgba(240,248,248,.12)}
+.c-row .ci{width:42px;height:42px;border-radius:50%;border:1px solid rgba(240,248,248,.25);display:grid;place-items:center;flex-shrink:0;transition:background .4s,border-color .4s}
 .c-row:hover .ci{background:var(--clay);border-color:var(--clay)}
 .c-row .ci svg{width:17px;height:17px;stroke:var(--bone)}
 .c-row .ct small{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--apricot);margin-bottom:.15rem}
 .c-row .ct b{font-weight:400;font-size:1.02rem;color:var(--bone)}
-.c-map{border-radius:18px;overflow:hidden;border:1px solid rgba(247,241,234,.14);box-shadow:0 30px 70px rgba(0,0,0,.35);min-height:380px}
+.c-map{border-radius:18px;overflow:hidden;border:1px solid rgba(240,248,248,.14);box-shadow:0 30px 70px rgba(0,0,0,.35);min-height:380px}
 .c-map iframe{width:100%;height:100%;min-height:380px;border:0;filter:grayscale(.3) contrast(1.05)}
 
 /* ---------- FOOTER ---------- */
-footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid rgba(247,241,234,.1);padding-block:2.4rem}
+footer{background:var(--night);color:rgba(240,248,248,.6);border-top:1px solid rgba(240,248,248,.1);padding-block:2.4rem}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap}
 .foot .fbrand{font-family:var(--serif);font-size:1.15rem;color:var(--bone);font-weight:400}
 .foot .fbrand i{font-style:italic;font-weight:300;font-size:.7em;letter-spacing:.1em;opacity:.65;display:block;text-transform:uppercase;margin-top:.1em}
@@ -462,6 +474,8 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   .proc-grid{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:1fr 1fr}
   .rev-top{flex-direction:column;align-items:flex-start}
+  .space-duo{flex-direction:column;}
+  .space-duo img{width:100%;}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -481,14 +495,14 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
 
 <div id="loader" aria-hidden="true">
   <div class="load-arc"></div>
-  <div class="load-name"><span>Ζαφειρία </span><span>Σταφυλά</span></div>
+  <div class="load-name"><span data-el>Ζαφειρία </span><span data-de>Zafeiria </span><span data-el>Σταφυλά</span><span data-de>Stafyla</span></div>
   <div class="load-prof"><span data-el>Ψυχολόγος</span><span data-de>Psychologin</span></div>
 </div>
 
 <header id="header">
   <nav class="wrap nav" aria-label="Κύρια πλοήγηση">
     <a href="#top" class="brand" aria-label="Ζαφειρία Σταφυλά — Αρχική">
-      <b>Ζαφειρία Σταφυλά</b><i data-el>Ψυχολόγος</i><i data-de>Psychologin</i>
+      <b data-el>Ζαφειρία Σταφυλά</b><b data-de>Zafeiria Stafyla</b><i data-el>Ψυχολόγος</i><i data-de>Psychologin</i>
     </a>
     <div class="nav-links">
       <a href="#about"><span data-el>Προφίλ</span><span data-de>Profil</span></a>
@@ -664,6 +678,13 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
   </div>
 </section>
 
+<section class="section space-gallery" id="gallery">
+  <div class="wrap space-duo reveal">
+    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/refs/heads/main/hespsa.jpg" alt="Space visual" class="zoomable" loading="lazy">
+    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/refs/heads/main/p23.jpg" alt="Space visual" class="zoomable" loading="lazy">
+  </div>
+</section>
+
 <section class="section process" id="process">
   <div class="wrap">
     <div class="reveal" style="max-width:54ch">
@@ -765,7 +786,7 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
       <div class="c-rows">
         <a class="c-row" href="https://maps.google.com/?q=Perikleous+46+Kalamaria+Thessaloniki" target="_blank" rel="noopener">
           <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-          <span class="ct"><small data-el>Διεύθυνση</small><small data-de>Adresse</small><b>Περικλέους 46, Καλαμαριά, Θεσσαλονίκη</b></span>
+          <span class="ct"><small data-el>Διεύθυνση</small><small data-de>Adresse</small><b data-el>Περικλέους 46, Καλαμαριά, Θεσσαλονίκη</b><b data-de>Perikleous 46, Kalamaria, Thessaloniki</b></span>
         </a>
         <a class="c-row" href="https://www.doctoranytime.gr/d/Psychologos/stafyla-zafeiria" target="_blank" rel="noopener">
           <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 8l8 5 8-5" stroke-linecap="round"/></svg></span>
@@ -791,8 +812,8 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
 
 <footer>
   <div class="wrap foot">
-    <div class="fbrand">Ζαφειρία Σταφυλά<i data-el>Ψυχολόγος · Καλαμαριά</i><i data-de>Psychologin · Kalamaria</i></div>
-    <small>© <span id="yr"></span> Ζαφειρία Σταφυλά · <span data-el>Άδεια 446227 (13725)</span><span data-de>Lizenz 446227 (13725)</span></small>
+    <div class="fbrand"><span data-el>Ζαφειρία Σταφυλά</span><span data-de>Zafeiria Stafyla</span><i data-el>Ψυχολόγος · Καλαμαριά</i><i data-de>Psychologin · Kalamaria</i></div>
+    <small>© <span id="yr"></span> <span data-el>Ζαφειρία Σταφυλά</span><span data-de>Zafeiria Stafyla</span> · <span data-el>Άδεια 446227 (13725)</span><span data-de>Lizenz 446227 (13725)</span></small>
     <small class="credit"><span data-el>Σχεδιασμός από</span><span data-de>Gestaltet von</span> <a href="https://www.advonmedia.com" target="_blank" rel="noopener">Advon Media</a></small>
   </div>
 </footer>
@@ -883,12 +904,12 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
 
   /* ---- REVIEWS VERTICAL ROTATOR ---- */
   const reviews=[
-    {n:"Ευαγγελία",t_el:"Άψογη επαγγελματίας, με σωστό τρόπο προσέγγισης.",t_de:"Eine makellose Fachfrau mit der richtigen Herangehensweise.",d_el:"Απρίλιος 2026",d_de:"April 2026"},
-    {n:"Stella",t_el:"Σε κάνει να νιώθεις άνετα από την πρώτη στιγμή. Έχει την απαραίτητη κατάρτιση και διάθεση να σε βοηθήσει. Εντοπίζει το πρόβλημα από την 1η συνεδρία.",t_de:"Sie gibt einem von der ersten Minute an ein Gefühl von Geborgenheit. Sie hat die nötige Ausbildung und den Willen zu helfen. Sie erkennt das Problem schon in der ersten Sitzung.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
-    {n:"Dennis",t_el:"Είμαι βαθιά ευγνώμων στη Ζαφειρία. Είναι ζεστή, με ενσυναίσθηση και πάντα συνεπής. Από την αρχή ένιωσα ασφάλεια και ότι με κατανοούν πραγματικά. Η άμεση στήριξη και οι ξεκάθαρες συμβουλές της έκαναν αληθινή διαφορά στη ζωή μου.",t_de:"Ich bin Zafeiria sehr dankbar. Sie ist warmherzig, einfühlsam und immer pünktlich. Von Anfang an habe ich mich sicher und verstanden gefühlt. Ihre direkte Hilfe und klaren Ratschläge haben mir sehr geholfen.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
-    {n:"Δημήτριος",t_el:"Πάνω από όλα άνθρωπος που σου εμπνέει εμπιστοσύνη, έτοιμη να βοηθήσει σε κάθε στιγμή που τη χρειάζεσαι — γεγονότα που την καθιστούν κορυφαία επιστήμονα στη συνείδησή μου.",t_de:"Vor allem ein Mensch, der Vertrauen einflößt, bereit zu helfen, wann immer man sie braucht — Dinge, die sie in meinem Bewusstsein zu einer herausragenden Wissenschaftlerin machen.",d_el:"Μάρτιος 2025",d_de:"März 2025"},
-    {n:"Εμμανουέλα",t_el:"Ένιωσα πραγματικά άνετα και ασφάλεια από την πρώτη κιόλας συνεδρία. Νιώθω ανακούφιση που βρήκα τον άνθρωπο που ξέρω ότι θα με βοηθήσει και μου έχει δώσει ελπίδες για το μέλλον μου.",t_de:"Ich habe mich schon in der allerersten Sitzung wirklich wohl und sicher gefühlt. Ich bin erleichtert, den Menschen gefunden zu haben, von dem ich weiß, dass er mir helfen wird und mir Hoffnung für meine Zukunft gegeben hat.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"},
-    {n:"Sissy",t_el:"Οι τεχνικές που διδάχθηκα με βοήθησαν σημαντικά στις καθημερινές προκλήσεις. Από την πρώτη στιγμή ένιωσα άνετα, σε ένα περιβάλλον γεμάτο κατανόηση και επαγγελματισμό. Σας ευχαριστώ πολύ.",t_de:"Die Techniken, die ich gelernt habe, haben mir sehr geholfen, die täglichen Herausforderungen zu meistern. Von der ersten Minute an fühlte ich mich wohl, in einer Umgebung voller Verständnis. Vielen Dank.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"}
+    {n_el:"Ευαγγελία",n_de:"Evangelia",t_el:"Άψογη επαγγελματίας, με σωστό τρόπο προσέγγισης.",t_de:"Eine makellose Fachfrau mit der richtigen Herangehensweise.",d_el:"Απρίλιος 2026",d_de:"April 2026"},
+    {n_el:"Stella",n_de:"Stella",t_el:"Σε κάνει να νιώθεις άνετα από την πρώτη στιγμή. Έχει την απαραίτητη κατάρτιση και διάθεση να σε βοηθήσει. Εντοπίζει το πρόβλημα από την 1η συνεδρία.",t_de:"Sie gibt einem von der ersten Minute an ein Gefühl von Geborgenheit. Sie hat die nötige Ausbildung und den Willen zu helfen. Sie erkennt das Problem schon in der ersten Sitzung.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
+    {n_el:"Dennis",n_de:"Dennis",t_el:"Είμαι βαθιά ευγνώμων στη Ζαφειρία. Είναι ζεστή, με ενσυναίσθηση και πάντα συνεπής. Από την αρχή ένιωσα ασφάλεια και ότι με κατανοούν πραγματικά. Η άμεση στήριξη και οι ξεκάθαρες συμβουλές της έκαναν αληθινή διαφορά στη ζωή μου.",t_de:"Ich bin Zafeiria sehr dankbar. Sie ist warmherzig, einfühlsam und immer pünktlich. Von Anfang an habe ich mich sicher und verstanden gefühlt. Ihre direkte Hilfe und klaren Ratschläge haben mir sehr geholfen.",d_el:"Ιούλιος 2025",d_de:"Juli 2025"},
+    {n_el:"Δημήτριος",n_de:"Dimitrios",t_el:"Πάνω από όλα άνθρωπος που σου εμπνέει εμπιστοσύνη, έτοιμη να βοηθήσει σε κάθε στιγμή που τη χρειάζεσαι — γεγονότα που την καθιστούν κορυφαία επιστήμονα στη συνείδησή μου.",t_de:"Vor allem ein Mensch, der Vertrauen einflößt, bereit zu helfen, wann immer man sie braucht — Dinge, die sie in meinem Bewusstsein zu einer herausragenden Wissenschaftlerin machen.",d_el:"Μάρτιος 2025",d_de:"März 2025"},
+    {n_el:"Εμμανουέλα",n_de:"Emmanouela",t_el:"Ένιωσα πραγματικά άνετα και ασφάλεια από την πρώτη κιόλας συνεδρία. Νιώθω ανακούφιση που βρήκα τον άνθρωπο που ξέρω ότι θα με βοηθήσει και μου έχει δώσει ελπίδες για το μέλλον μου.",t_de:"Ich habe mich schon in der allerersten Sitzung wirklich wohl und sicher gefühlt. Ich bin erleichtert, den Menschen gefunden zu haben, von dem ich weiß, dass er mir helfen wird und mir Hoffnung für meine Zukunft gegeben hat.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"},
+    {n_el:"Sissy",n_de:"Sissy",t_el:"Οι τεχνικές που διδάχθηκα με βοήθησαν σημαντικά στις καθημερινές προκλήσεις. Από την πρώτη στιγμή ένιωσα άνετα, σε ένα περιβάλλον γεμάτο κατανόηση και επαγγελματισμό. Σας ευχαριστώ πολύ.",t_de:"Die Techniken, die ich gelernt habe, haben mir sehr geholfen, die täglichen Herausforderungen zu meistern. Von der ersten Minute an fühlte ich mich wohl, in einer Umgebung voller Verständnis. Vielen Dank.",d_el:"Φεβρουάριος 2025",d_de:"Februar 2025"}
   ];
   
   const rot = doc.getElementById("revRotator");
@@ -899,8 +920,8 @@ footer{background:var(--night);color:rgba(247,241,234,.6);border-top:1px solid r
         <div class="rev-q" aria-hidden="true">“</div>
         <p class="rev-text"><span data-el>${r.t_el}</span><span data-de>${r.t_de}</span></p>
         <div class="rev-foot">
-          <div class="rev-ava" aria-hidden="true">${initials(r.n)}</div>
-          <div class="rev-meta"><b>${r.n}</b><span class="stars" style="color:var(--clay)">★★★★★</span> <span>· ${`<span data-el>${r.d_el}</span><span data-de>${r.d_de}</span>`}</span></div>
+          <div class="rev-ava" aria-hidden="true"><span data-el>${initials(r.n_el)}</span><span data-de>${initials(r.n_de)}</span></div>
+          <div class="rev-meta"><b><span data-el>${r.n_el}</span><span data-de>${r.n_de}</span></b><span class="stars" style="color:var(--clay)">★★★★★</span> <span>· ${`<span data-el>${r.d_el}</span><span data-de>${r.d_de}</span>`}</span></div>
         </div>
       </article>`;
     }).join("");
