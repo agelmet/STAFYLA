@@ -350,10 +350,9 @@ h2.title em{font-style:italic;color:var(--clay)}
 
 /* ---------- SPACE GALLERY ---------- */
 .space-gallery{background:var(--bone-2); padding-top:0;}
-.space-duo{display:flex;align-items:center;justify-content:center;gap:clamp(1.5rem,3vw,3rem);}
-.space-duo img{
-  max-width:100%;
-  width:calc(50% - 1.5rem);
+.space-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1.5rem,3vw,3rem);}
+.space-grid img{
+  width:100%;
   height:auto;
   object-fit:contain;
   border-radius:16px;
@@ -474,8 +473,7 @@ footer{background:var(--night);color:rgba(240,248,248,.6);border-top:1px solid r
   .proc-grid{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:1fr 1fr}
   .rev-top{flex-direction:column;align-items:flex-start}
-  .space-duo{flex-direction:column;}
-  .space-duo img{width:100%;}
+  .space-grid{grid-template-columns:1fr;}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -679,9 +677,11 @@ footer{background:var(--night);color:rgba(240,248,248,.6);border-top:1px solid r
 </section>
 
 <section class="section space-gallery" id="gallery">
-  <div class="wrap space-duo reveal">
-    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/refs/heads/main/hespsa.jpg" alt="Space visual" class="zoomable" loading="lazy">
-    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/refs/heads/main/p23.jpg" alt="Space visual" class="zoomable" loading="lazy">
+  <div class="wrap space-grid reveal">
+    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/b97e8a2c58db3c3a459fe060c3e61a6a8f33216b/sp2.jpg" alt="Space visual" class="zoomable" loading="lazy">
+    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/b97e8a2c58db3c3a459fe060c3e61a6a8f33216b/sp3.jpg" alt="Space visual" class="zoomable" loading="lazy">
+    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/b97e8a2c58db3c3a459fe060c3e61a6a8f33216b/spc1.jpg" alt="Space visual" class="zoomable" loading="lazy">
+    <img src="https://raw.githubusercontent.com/agelmet/STAFYLA/b97e8a2c58db3c3a459fe060c3e61a6a8f33216b/sp4.jpg" alt="Space visual" class="zoomable" loading="lazy">
   </div>
 </section>
 
